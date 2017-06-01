@@ -1,0 +1,415 @@
+[
+{"name": "Ushuaia",
+	"mapKey": "Ushuaia",
+	"coordinate": {
+					"latitude": -54.8054,
+					"longitude": -68.3378
+				},
+	"shortDescription": "southernmost city in the world",
+	"weatherUrl": "http://www.accuweather.com/en/ar/ushuaia/6462/weather-forecast/6462",
+	"mainImageSrc": "https://c1.staticflickr.com/1/315/17727980154_887bbafd59_b.jpg",
+	"otherImages": [
+	{
+		"imageSrc": "https://c1.staticflickr.com/1/315/17727980154_887bbafd59_b.jpg"
+	},
+	{
+		"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Norskfolkemuseum_1.jpg/640px-Norskfolkemuseum_1.jpg"
+	}, 
+	{
+		"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Elwood_Cabin_Rio_Grande_Forest_Colorado_September_2013.JPG/640px-Elwood_Cabin_Rio_Grande_Forest_Colorado_September_2013.JPG"
+	}],
+	"infoItems": [
+		{
+			"itemType":"TEXT",
+			"text": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature."
+		},
+		{
+			"itemType":"LINE"
+		},
+		{
+			"itemType":"TEXT",
+			"text": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature."
+		},
+		{
+			"itemType":"LINE"
+		},
+		{
+			"itemType":"TEXT",
+			"text": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature."
+		},
+		{
+			"itemType":"LINE"
+		},
+		{
+			"itemType":"BOLD_TEXT",
+			"text": "This is a very important note!!!"
+		},
+		{
+			"itemType":"LINE"
+		},
+		{
+			"itemType":"TITLE",
+			"text":"Opening times"
+		},
+		{
+			"itemType":"DOUBLE_COLUMN_TEXT",
+			"textColumnLeft":"Monday-Friday",
+			"textColumnRight":"8:00 - 22:00"
+		},
+		{
+			"itemType":"DOUBLE_COLUMN_TEXT",
+			"textColumnLeft":"Saturday",
+			"textColumnRight":"8:00 - 17:00"
+		},
+		{
+			"itemType":"DOUBLE_COLUMN_TEXT",
+			"textColumnLeft":"Sunday",
+			"textColumnRight":"Closed"
+		},
+		{
+			"itemType":"LINE"
+		},
+		{
+			"itemType":"PHONE",
+			"text":"123-456-789",
+			"number":"12345678"
+		},
+		{
+			"itemType":"WEBSITE",
+			"text":"www.testWebsite.com",
+			"url":"http://www.google.com"
+		},
+		{
+			"itemType":"EMAIL",
+			"text":"Send us an email!",
+			"email":"test@test.com"
+		},
+		{
+			"itemType":"MAP",
+			"latitude": -54.8054,
+			"longitude": -68.3378,
+			"delta": 0.5
+		},
+		{
+			"itemType":"LINE"
+		},
+		{
+			"itemType":"SPACE",
+			"height":"200"
+		}
+	],
+	"cityMenus": [
+	{"cityMenuName":"Accommodation", 
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/dondedormir.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/accomodation1.jpg",
+		"items": [
+		{
+			"name": "Hostal de la Laguna",
+			"mapKey": "Laguna",
+			"coordinate": {
+				"latitude": -54.8043,
+				"longitude": -68.3338
+			},
+			"hasDeals": "true",
+			"dealsText": "Season discounts",
+			"itemType": "Hostel",
+			"itemInfo": "This charming Patagonian inn is styled with rustic wood finishings and offers free Wi-Fi. It is located across from Laguna del Diablo Lagoon. Ski and ice-skates rental is available.Rooms at Hostal de la Laguna are equipped with heating and private bathrooms with showers. Some of them have garden views. A full continental breakfast with regional jams and breads is served daily. Guests can treat themselves to local flavours at the restaurant. Ushuaia’s National Park is 11.2 miles from the inn. The tour desk can offer handy tips for visiting the area and arrange car rental. There is 24-hour front desk assistance and the city’s airport is 1.9 miles away.",
+			"mainImageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Norskfolkemuseum_1.jpg/640px-Norskfolkemuseum_1.jpg",
+			"otherImages": [
+			{
+				"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Norskfolkemuseum_1.jpg/640px-Norskfolkemuseum_1.jpg"
+			}, 
+			{
+				"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Elwood_Cabin_Rio_Grande_Forest_Colorado_September_2013.JPG/640px-Elwood_Cabin_Rio_Grande_Forest_Colorado_September_2013.JPG"
+			}],
+			"infoItems": [
+				{
+					"itemType":"TEXT",
+					"text": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature."
+				},
+				{
+					"itemType":"LINE"
+				},
+				{
+					"itemType":"TEXT",
+					"text": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature."
+				},
+				{
+					"itemType":"LINE"
+				},
+				{
+					"itemType":"TEXT",
+					"text": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature."
+				},
+				{
+					"itemType":"LINE"
+				},
+				{
+					"itemType":"BOLD_TEXT",
+					"text": "This is a very important note!!!"
+				},
+				{
+					"itemType":"LINE"
+				},
+				{
+					"itemType":"TITLE",
+					"text":"Opening times"
+				},
+				{
+					"itemType":"DOUBLE_COLUMN_TEXT",
+					"textColumnLeft":"Monday-Friday",
+					"textColumnRight":"8:00 - 22:00"
+				},
+				{
+					"itemType":"DOUBLE_COLUMN_TEXT",
+					"textColumnLeft":"Saturday",
+					"textColumnRight":"8:00 - 17:00"
+				},
+				{
+					"itemType":"DOUBLE_COLUMN_TEXT",
+					"textColumnLeft":"Sunday",
+					"textColumnRight":"Closed"
+				},
+				{
+					"itemType":"LINE"
+				},
+				{
+					"itemType":"PHONE",
+					"text":"123-456-789",
+					"number":"tel:07510836616"
+				},
+				{
+					"itemType":"WEBSITE",
+					"text":"www.testWebsite.com",
+					"url":"http://www.google.com"
+				},
+				{
+					"itemType":"EMAIL",
+					"text":"Send us an email!",
+					"email":"mailto:ma.wichmann@gmail.com?subject=DarwinApp&body=Hola, este es el cuerpo del email"
+				},
+				{
+					"itemType":"MAP",
+					"text":"Open maps",
+					"location":"geo:37.484847,-122.148386"
+				},
+				{
+					"itemType":"LINE"
+				},
+				{
+					"itemType":"SPACE",
+					"height":"200"
+				}
+			]
+		},
+		{
+			"name": "Hoster\u00eda Patagonia Jarke",
+			"mapKey": "Patagonia Jarke",
+			"coordinate": {
+				"latitude": -54.8044,
+				"longitude": -68.3361
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "Featuring a classic alpine-style décor, the hotel offers cosy rooms with panoramic views of Ushuaia Bay and the Beagle Channel. The property is located in a strategic spot in centric Ushuaia, only 200 yards from the shopping centre. There is free Wi-Fi. Rooms at Hosteria Patagonia Jarke are equipped with heating, safety deposit boxes, telehones and cable TVs. All of them have private bathrooms and coffee makers. Wood furnishings, parquet floors and rugs create a warm ambiance. Laundry services are available. The property features a breakfast area with modern glass panelled ceiling, where a continental breakfast with coffee, bread toast and regional jams can be enjoyed daily. The hotel also treats guests to a daily complimentary tray of coffee and tea, refilled throughout the day. Jarke is a completely non-smoking hotel. It has 24-hour security service and luggage storage. Downtown Ushuaia is just a 5-minute walk and car rental services are also available. Ushuaia Airport is 3.7 miles away. This is our guests' favourite part of Ushuaia, according to independent reviews. We speak your language!",
+			"mainImageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Ushuaia_port.JPG/640px-Ushuaia_port.JPG",
+			"otherImages": [{
+				"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Ushuaia_port.JPG/640px-Ushuaia_port.JPG"
+			}, {
+				"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Elwood_Cabin_Rio_Grande_Forest_Colorado_September_2013.JPG/640px-Elwood_Cabin_Rio_Grande_Forest_Colorado_September_2013.JPG"
+			}],
+			"infoItems": [
+			]
+		},
+		{
+			"name": "Hotel La Manzana",
+			"mapKey": "La Manzana",
+			"coordinate": {
+				"latitude": -54.8044,
+				"longitude": -68.3354
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "bla bla",
+			"mainImageSrc": "https://media-cdn.tripadvisor.com/media/photo-s/01/eb/8b/9f/explora-patagonia-hotel.jpg"
+		},
+		{
+			"name": "Hotel Los Cerezos",
+			"mapKey": "Los Cerezos",
+			"coordinate": {
+					"latitude": -54.8049,
+					"longitude": -68.3354
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "bla bla",
+			"mainImageSrc": "http://www.uniqhotels.com/media/hotels/40/patagonia-hotel-03b.jpg"
+		},
+		{
+			"name": "Hotel El Pomelo Colorado",
+			"mapKey": "Pomelo Colorado",
+			"coordinate": {
+					"latitude": -54.8050,
+					"longitude": -68.3357
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "bla bla",
+			"mainImageSrc": "https://i.ytimg.com/vi/9IJy1U0Qjcc/maxresdefault.jpg"
+		},
+		{
+			"name": "Hotel Frutillas Rojas",
+			"mapKey": "Frutillas Rojas",
+			"coordinate": {
+					"latitude": -54.8045,
+					"longitude": -68.3357
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "bla bla",
+			"mainImageSrc": "http://www.nationalgeographiclodges.com/content/dam/lodges/Photos/Destinations/South-America/Tierra-Patagonia/Interior/Spa/tierra-patagonia-spa-11.adapt.768.1.sqrcrop.jpg"
+		},
+		{
+			"name": "Hotel Anana",
+			"mapKey": "Anana",
+			"coordinate": {
+					"latitude": -54.8045,
+					"longitude": -68.3352
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "bla bla",
+			"mainImageSrc": "http://i2.visitchile.com/fotos/hotel/full/8979-tierra-patagonia-hotel-spa.jpg"
+		},
+		{
+			"name": "Hotel Otras Frutas",
+			"mapKey": "Otras Frutas",
+			"coordinate": {
+					"latitude": -54.8040,
+					"longitude": -68.3353
+			},
+			"itemType": "Hosteria",
+			"itemInfo": "bla bla",
+			"mainImageSrc": "http://www.thesingular.com/d/puertonatales/media/Interiors/The_Singular_Room_King_jpg.jpg"
+		}]
+	},
+	{"cityMenuName":"Activities",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/excursiones.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/activities1.jpg",
+		"items": [
+		{
+			"name": "Los Lagartos Trekking",
+			"mapKey": "Lagartos Trekking",
+			"coordinate": {
+					"latitude": -54.8060,
+					"longitude": -68.3360
+			},
+			"hasDeals": "true",
+			"dealsText": "50% off Mon-Wed",
+			"itemType": "Trekking",
+			"itemInfo": "The city of Ushuaia is ideal for trekking. This sport provides a full-body workout, and, as it turns out, it's the most popular one chosen by both children and adults in Patagonia. The mountains in Ushuaia are perfectly accessible for those who have the time and the physical condition to venture into them. Trekking is exactly what you need if you want to see the beautiful southern landscape and feel the refreshing air in your lungs. If you have a passion for walking, then you should choose this activity as it is an excellent chance to be in close contact with nature.",
+			"mainImageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bivouac2.jpg/640px-Bivouac2.jpg",
+			"otherImages": [{
+				"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Bivouac2.jpg/640px-Bivouac2.jpg"
+			}, {
+				"imageSrc": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/027_Cycling_Torres_del_Paine.jpg/640px-027_Cycling_Torres_del_Paine.jpg"
+			}]
+		}]
+	},
+	{"cityMenuName":"Restaurants",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/gastronomia.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/restaurants1.jpg",
+		"items": [
+		]
+	},
+	{"cityMenuName":"Winter gear",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/indumentaria.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/winterGear1.jpg",
+		"items": [
+		]
+	},
+	{"cityMenuName":"Shopping",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/decompras.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/shopping1.jpg",
+		"items": [
+		]
+	},
+	{"cityMenuName":"Tourism",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/agencias.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/tourism1.jpg",
+		"items": [
+		]
+	},
+	{"cityMenuName":"Art and Culture",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/arte+y+cultura.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/culture1.jpg",
+		"items": [
+]
+	},
+	{"cityMenuName":"Transport",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/transporte.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/transport1.jpg",
+		"items": [
+		{
+			"name": "Hospital Don Quijote",
+			"mapKey": "Hosp Don Quijote",
+			"coordinate": {
+					"latitude": -54.8041,
+					"longitude": -68.3360
+			},
+			"itemType": "Hospitales",
+			"itemInfo": "Urgencias 24 hs.",
+			"mainImageSrc": "http://clinica-web.com.ar/wp-content/uploads/2016/06/hospital-el-calafate-samic.jpg"
+		}
+		]
+	},
+	{"cityMenuName":"Laundry",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/lavanderia.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/laundry1.jpg",
+		"items": [
+		]
+	},
+	{"cityMenuName":"Beauty and Health",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/salud.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/health1.jpg",
+		"items": [
+		]
+	},
+	{"cityMenuName":"Other",
+		"imageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/varios.png",
+		"backgroundImageSrc": "https://s3-sa-east-1.amazonaws.com/wirestorage/jpgs/other1.jpg",
+		"items": [
+		]
+	}
+	]
+},
+{"name": "Calafate",
+	"mapKey": "Calafate",
+	"coordinate": {
+					"latitude": -50.3295,
+					"longitude": -72.3677
+				},
+	"shortDescription": "tierra de glaciares",
+	"cityInformation": "Calafate bla bla mas info.",
+	"mainImageSrc": "http://gotravelaz.com/wp-content/uploads/images/El_Calafate_9130.jpg",
+	"cityMenus": [
+		{"cityMenuName":"Restaurantes",
+			"items": [
+				{}
+			]
+		}
+	]
+},
+{"name": "Chalten",
+	"mapKey": "Chalten",
+	"coordinate": {
+					"latitude": -49.3278,
+					"longitude": -72.9072
+				},
+	"shortDescription": "capital del trekking",
+	"isEnabled": "false",
+	"cityInformation": "El Chalten bla bla mas info.",
+	"mainImageSrc": "http://blog.kallpatour.com/wp-content/uploads/journey-to-el-chalten.jpg",
+	"cityMenus": [
+		{"cityMenuName":"Restaurantes",
+			"items": [
+				{}
+			]
+		}
+	]
+}
+]
