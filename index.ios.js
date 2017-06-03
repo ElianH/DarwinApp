@@ -1,53 +1,40 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { AppRegistry } from 'react-native';
+import { Router, Scene, ActionConst, Modal } from 'react-native-router-flux';
+
+import LogoView from './LogoView';
+import CitiesView from './CitiesView';
+import CityView from './CityView';
+import CityMenuView from './CityMenuView';
+import GeneralMapView from './GeneralMapView';
+import InfoView from './InfoView';
+import DealsView from './DealsView';
+import PlanYourTripView from './PlanYourTripView';
+import ConfigView from './ConfigView';
+import StatusModal from './StatusModal';
 
 export default class DarwinApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+    <Router style={{backgroundColor:'#000'}} >
+      <Scene style={{backgroundColor:'#000'}} hideNavBar={true} key="modal" component={Modal}>
+        <Scene style={{backgroundColor:'#000'}} key="root" hideNavBar={true}>
+          <Scene key="logoPage" component={LogoView} title="Logo" hideNavBar={true} initial={true} />
+          <Scene key="configPage" component={ConfigView} title="Config" hideNavBar={true} />
+          <Scene key="citiesPage" component={CitiesView} hideNavBar={true} title="Cities" type={ActionConst.RESET} />
+          <Scene key="cityPage" component={CityView} hideNavBar={true} title="City" />
+          <Scene key="cityMenuPage" component={CityMenuView} hideNavBar={true} title="City Menu" />
+          <Scene key="generalMapPage" component={GeneralMapView} hideNavBar={true} title="Map" />
+          <Scene key="infoPage" component={InfoView} hideNavBar={true} title="Info" />
+          <Scene key="dealsPage" component={DealsView} hideNavBar={true} title="Deals" />
+          <Scene key="planYourTripPage" component={PlanYourTripView} hideNavBar={true} title="PlanYourTrip" />
+          <Scene key="weatherPage" component={InfoView} hideNavBar={true} title="Weather" />
+        </Scene>
+        <Scene key="statusModal" component={StatusModal} hideNavBar={true} />
+      </Scene>
+    </Router>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('DarwinApp', () => DarwinApp);

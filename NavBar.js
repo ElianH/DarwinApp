@@ -179,11 +179,13 @@ const styles = StyleSheet.create({
 		width:25,
 		height:25,
 		alignSelf:'center',
+		tintColor:'#EEE',
 	},	
 	navBarConfigButtonImage: {
 		width:23,
 		height:23,
 		alignSelf:'center',
+		tintColor:'#EEE',
 	},	
 	navBarText: {
 		flex:1,
@@ -204,6 +206,7 @@ const styles = StyleSheet.create({
 	navBarSearchButtonImage: {
 		width:27,
 		height:27,
+		tintColor:'#EEE',
 	},		
 	navBarMapButton: {
 		width:45,
@@ -215,6 +218,7 @@ const styles = StyleSheet.create({
 	navBarMapButtonImage: {
 		width:25,
 		height:25,
+		tintColor:'#EEE',
 	},
 	navBarFilterButton: {
 		width:45,
@@ -226,6 +230,7 @@ const styles = StyleSheet.create({
 	navBarFilterButtonImage: {
 		width:25,
 		height:25,
+		tintColor:'#EEE',
 	},
 	navBarInfoButton: {
 		width:45,
@@ -237,6 +242,7 @@ const styles = StyleSheet.create({
 	navBarInfoButtonImage: {
 		width:22,
 		height:22,
+		tintColor:'#EEE',
 	},
 	navBarSearchTextInput: {
 		height: 50, 
@@ -254,5 +260,6 @@ const styles = StyleSheet.create({
 	navBarCloseSearchButtonImage: {
 		width:20,
 		height:20,
+		tintColor:'#EEE',
 	},
 });

@@ -121,7 +121,7 @@ export default class LogoView extends Component {
 	
 	prefetchImages(citiesJson){
 		var uris = [];
-		
+
 		citiesJson.slice().map((city)=> {
 			// load city images
 			uris.push(city.mainImageSrc);
@@ -162,14 +162,36 @@ export default class LogoView extends Component {
 			Alert.alert('Done loading images: ' + uris.length);
 		});*/
 	}
-  
+
 	getJsonAsync(url, postLoadAction) {
+
+		fetch(url)
+      		.then((response) => response.json())
+      		.then((responseJson) => {
+        		var citiesJsonString = JSON.stringify(responseJson);
+        		this.processJson(citiesJsonString, postLoadAction);
+      		})
+      		.catch((error) => {
+        		console.error(error);
+      		});
+  		return;
+
+
+
 		return fetch(url)
 			.then((responseJson) => {
 				var citiesJsonString = responseJson._bodyInit;
+
+				console.error(responseJson._bodyInit);
+				Alert.alert('json 123:',responseJson._bodyInit.cities);
+
 				this.processJson(citiesJsonString, postLoadAction);
 			})
 			.catch((error) => { 
+				
+				//Alert.alert('error', error); 
+				//return;
+
 				Alert.alert(this.state.localizedStrings.offlineMode, this.state.localizedStrings.offlineModeAlertText);
 			
 				try {
@@ -182,13 +204,16 @@ export default class LogoView extends Component {
 						}
 					});
 				} catch (error) {
+
 					Alert.alert(this.state.localizedStrings.offlineMode, 'Error loading data');
 				}
 			});
 	}
 	
 	processJson(citiesJsonString, postLoadAction){
+
 		var citiesJson = JSON.parse(citiesJsonString);
+
 		this.setState({
 			citiesJson: citiesJson,
 			isLoading: false

@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
 	},
 	configButtonText: {
 		marginLeft:10,
-		color:'333',
+		color:'#333',
 		fontFamily:'OpenSans-Regular',
 		alignSelf:'center',
 		fontSize: 16,

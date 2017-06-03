@@ -37,4 +37,4 @@ export default class DarwinApp extends Component {
   }
 }
 
-AppRegistry.registerComponent('Darwin', () => DarwinApp);
+AppRegistry.registerComponent('DarwinApp', () => DarwinApp);
