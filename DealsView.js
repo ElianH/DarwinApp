@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		margin:5,
 		color:'#EEEEEE',
-		fontFamily:'sans-serif-light',
+		fontFamily:'OpenSans-Regular',
 	},
 	itemButtonSecondLineView: {
 		flex: 1,
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		margin:5,
 		color:'#EEEEEE',
-		fontFamily:'sans-serif-light',
+		fontFamily:'OpenSans-Regular',
 	},
 	itemButtonDistanceText: {
 		fontSize: 14,
 		margin:5,
 		color:'#EEEEEE',
-		fontFamily:'sans-serif-light',
+		fontFamily:'OpenSans-Regular',
 	},
 });

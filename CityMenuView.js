@@ -80,9 +80,9 @@ export default class CityMenuView extends Component {
 			color = '#222';
 		}
 		return {
-			fontSize: 16,
+			fontSize: 14,
 			color:color,
-			fontFamily:'sans-serif-light',
+			fontFamily:'OpenSans-Regular',
 		}
 	}
   
@@ -252,7 +252,7 @@ export default class CityMenuView extends Component {
 											<Text style={styles.filterButtonText}>{filterItem.name.toUpperCase()}</Text>
 											{
 												this.itemTypesMap[filterItem.name].isSelected &&
-												<Image style={styles.filterCheckmarkImage} resizeMode='contain' tintColor='#EEEEEE' source={checkmarkImageSource}/>				
+												<Image style={styles.filterCheckmarkImage} resizeMode='contain' source={checkmarkImageSource}/>				
 											}
 										</View>
 									</TouchableHighlight>
@@ -447,5 +447,6 @@ const styles = StyleSheet.create({
 		height: 30,
 		alignSelf:'stretch',
 		justifyContent: 'center',
+		tintColor: '#EEE',
 	}
 });

@@ -193,6 +193,9 @@ export default class GeneralMapView extends Component {
 						moveOnMarkerPress={false}
 						style={styles.map}
 						showsUserLocation={true}
+						showsPointsOfInterest={false}
+						showsBuildings={false}
+						showsTraffic={false}
 						region={this.state.region}
 						onRegionChange={this.onRegionChange}>
 							{this.markers.map(marker => {
@@ -238,12 +241,11 @@ export default class GeneralMapView extends Component {
 											Actions.refresh();
 										}}>
 										<Image 
-											style={styles.filterButtonImage} 
-											tintColor={ 
-												(this.uniqueMarkerTypes[markerType.typeName].isEnabled && '#EEE') ||
-												(!this.uniqueMarkerTypes[markerType.typeName].isEnabled && '#888')												
-											} 
-											resizeMode='contain' 
+											style={[styles.filterButtonImage,{ 
+													tintColor:
+														(this.uniqueMarkerTypes[markerType.typeName].isEnabled && '#EEE') ||
+														(!this.uniqueMarkerTypes[markerType.typeName].isEnabled && '#888')												
+													}]}
 											source={{ uri: markerType.imageSrc }}>																
 										</Image>
 									</TouchableHighlight >

@@ -92,7 +92,7 @@ export default class CitiesView extends Component {
 				onLanguageChanged= { (localizedStrings, citiesJson) => { this.onLanguageChanged(localizedStrings, citiesJson); }}
 				onMapButtonClick={() => { this.goToGeneralMapPage(localizedStrings, citiesJson); }}/>
 			<ListView style={styles.citiesListView}
-				keyboardShouldPersistTaps={true}
+				keyboardShouldPersistTaps="always"
 				dataSource={filteredDataSource}
 				renderRow={(city) => {
 					return (
@@ -112,7 +112,7 @@ export default class CitiesView extends Component {
 										</View>
 										<Text style={styles.cityButtonShortDescriptionText}>{city.shortDescription}</Text>
 										<TouchableHighlight style={styles.cityButtonIconsView} onPress={() => { this.goToInfoPage(localizedStrings, city) }}>
-											<Image style={styles.cityButtonInfoIconImage} tintColor='#EEEEEE' source={infoIconImageSource}/>
+											<Image style={styles.cityButtonInfoIconImage} source={infoIconImageSource}/>
 										</TouchableHighlight>
 									</View>
 								</LinearGradient>
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
 		height: 25,
 		margin: 10,
 		alignSelf: 'flex-end',
+		tintColor: '#EEE',
 	},
 	linearGradient: {
         backgroundColor: "transparent",

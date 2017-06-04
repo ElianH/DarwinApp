@@ -257,7 +257,7 @@ export default class ConfigView extends Component {
 				localizedStrings={localizedStrings}
 				enableSearch={false}/>	
 			<ListView style={styles.configListView}
-				keyboardShouldPersistTaps={true}
+				keyboardShouldPersistTaps="always"
 				dataSource={dataSource}
 				renderRow={(item) => {
 					return (

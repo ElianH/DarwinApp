@@ -4,6 +4,7 @@ import ViewPager from 'react-native-viewpager';
 import { Actions } from 'react-native-router-flux';
 import ParallaxScrollView from './ParallaxScrollView'
 import NavBar from './NavBar'
+import MapView from 'react-native-maps';
 
 export default class InfoView extends Component {
 
@@ -25,6 +26,9 @@ export default class InfoView extends Component {
 	}; 
   
 	renderRow(row) {
+		
+		const selectedMarkerImageSource = require('./img/Icons/selected_marker_city2.png');
+		
 		if ((row != null)&&(row.itemType != null)){
 			switch (row.itemType.toUpperCase()) {
 				case 'TITLE':
@@ -82,8 +86,26 @@ export default class InfoView extends Component {
 					);
 				case 'MAP':
 					return (
+						row.latitude != null && row.longitude != null && row.delta != null &&
 						<View>
-							<Text style={styles.rowViewTouchableText}>{row.latitude}</Text>
+							<MapView
+								style={styles.rowViewMap}
+								cacheEnabled={true}				
+								zoomEnabled={false}
+								rotateEnabled={false} 
+								scrollEnabled={false}
+								pitchEnabled={false}
+								region={{
+									latitude: row.latitude,
+									longitude: row.longitude,
+									latitudeDelta: row.delta,
+									longitudeDelta: row.delta,
+								}}>
+								<MapView.Marker
+									image={selectedMarkerImageSource}
+									style={{height:15, width:15}}
+									coordinate={{ latitude: row.latitude, longitude: row.longitude }}/>									
+							</MapView>
 						</View>
 					);
 				case 'SHARE':
@@ -212,7 +234,7 @@ export default class InfoView extends Component {
 						<View style={{flexDirection:'row', justifyContent: 'space-between'}}>
 							<Text style={{ color:'#888', fontSize:16, fontFamily:'OpenSans-Regular'}}>{this.props.selectedItem.shortDescription}</Text>
 							<TouchableHighlight style={styles.openSharePanelButton} onPress={() => { this.toggleSharePanel(); }}>
-								<Image style={styles.openSharePanelButtonImage} resizeMode='contain' tintColor='#F4F4F4' source={shareButtonImage} />
+								<Image style={styles.openSharePanelButtonImage} resizeMode='contain' source={shareButtonImage} />
 							</TouchableHighlight>
 						</View>
 					</View>
@@ -397,6 +419,11 @@ const styles = StyleSheet.create({
 		fontFamily: 'OpenSans-Regular',
 		color: '#888'
 	},
+	rowViewMap: {
+		height:200,
+		margin: 15,
+		opacity: 0.8,
+	},
 	openSharePanelButton:{
 		margin:2,
 		alignSelf:'flex-end',
@@ -404,6 +431,7 @@ const styles = StyleSheet.create({
 	openSharePanelButtonImage:{
 		width: 30,
 		height: 30,
+		tintColor: '#F4F4F4', 
 	},
 	shareButton:{
 		width: 70,

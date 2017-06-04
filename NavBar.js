@@ -43,7 +43,7 @@ export default class NavBarView extends Component {
 					{
 						(this.props.enableConfigButton != null && this.props.enableConfigButton != 'undefined' && this.props.enableConfigButton) &&
 						<TouchableHighlight style={styles.navBarConfigButton} onPress={() => { goToConfigPage() } }>
-							<Image style={styles.navBarConfigButtonImage} tintColor='#EEEEEE' source={configkButtonImageSource}/>
+							<Image style={styles.navBarConfigButtonImage} source={configkButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					{
@@ -53,20 +53,20 @@ export default class NavBarView extends Component {
 								this.isSearching = false;
 								Actions.pop();
 						}}>
-							<Image style={styles.navBarBackButtonImage} tintColor='#EEEEEE' source={backButtonImageSource}/>
+							<Image style={styles.navBarBackButtonImage} source={backButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					<Text style={styles.navBarText}>{navTitle}</Text>
 					{
 						(this.props.onFilterButtonClick) &&
 						<TouchableHighlight style={styles.navBarFilterButton} onPress={() => { this.props.onFilterButtonClick(); }}>
-							<Image style={styles.navBarFilterButtonImage} tintColor='#EEEEEE' source={filterButtonImageSource}/>
+							<Image style={styles.navBarFilterButtonImage} source={filterButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					{
 						(this.props.onInfoButtonClick) &&
 						<TouchableHighlight style={styles.navBarInfoButton} onPress={() => { this.props.onInfoButtonClick(); }}>
-							<Image style={styles.navBarInfoButtonImage} tintColor='#EEEEEE' source={infoButtonImageSource}/>
+							<Image style={styles.navBarInfoButtonImage} source={infoButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					{
@@ -76,19 +76,19 @@ export default class NavBarView extends Component {
 								this.props.onSearchChanged(this.isSearching, this.text);
 								Actions.refresh();
 							}}>
-							<Image style={styles.navBarSearchButtonImage} tintColor='#EEEEEE' source={searchButtonImageSource}/>
+							<Image style={styles.navBarSearchButtonImage} source={searchButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					{
 						(this.props.onMapButtonClick) &&
 						<TouchableHighlight style={styles.navBarMapButton} onPress={() => { this.props.onMapButtonClick(); }}>
-							<Image style={styles.navBarMapButtonImage} tintColor='#EEEEEE' source={mapButtonImageSource}/>
+							<Image style={styles.navBarMapButtonImage} source={mapButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					{
 						(this.props.onListButtonClick) &&
 						<TouchableHighlight style={styles.navBarMapButton} onPress={() => { this.props.onListButtonClick(this.props.localizedStrings, this.props.listItems); }}>
-							<Image style={styles.navBarMapButtonImage} tintColor='#EEEEEE' source={listButtonImageSource}/>
+							<Image style={styles.navBarMapButtonImage} source={listButtonImageSource}/>
 						</TouchableHighlight>
 					}
 					{
@@ -107,7 +107,7 @@ export default class NavBarView extends Component {
 								this.props.onSearchChanged(this.isSearching, this.text);
 								Actions.refresh();
 							}}>
-						<Image style={styles.navBarBackButtonImage} tintColor='#EEEEEE' source={backButtonImageSource}/>
+						<Image style={styles.navBarBackButtonImage} source={backButtonImageSource}/>
 					</TouchableHighlight>
 					<TextInput
 						style={styles.navBarSearchTextInput}
