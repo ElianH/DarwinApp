@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, StyleSheet, ListView, Alert, Image, TextInput, TouchableWithoutFeedback} from 'react-native';
+import { Text, TouchableHighlight, View, StyleSheet, ListView, Alert, Image, TextInput, TouchableWithoutFeedback, StatusBar} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class NavBarView extends Component {
@@ -35,6 +35,7 @@ export default class NavBarView extends Component {
     return (
 	
 		<View style={styles.navBarBackground}>
+			<StatusBar backgroundColor="#000" barStyle="light-content" />
 			{
 				(!this.isSearching) &&
 				<View style={[styles.navBarStyle,{backgroundColor:backgroundColor}]}>

@@ -16,7 +16,7 @@ import StatusModal from './StatusModal';
 export default class DarwinApp extends Component {
   render() {
     return (
-    <Router style={{backgroundColor:'#000'}} >
+    <Router style={{backgroundColor:'#000', paddingTop:10}} >
       <Scene style={{backgroundColor:'#000'}} hideNavBar={true} key="modal" component={Modal}>
         <Scene style={{backgroundColor:'#000'}} key="root" hideNavBar={true}>
           <Scene key="logoPage" component={LogoView} title="Logo" hideNavBar={true} initial={true} />

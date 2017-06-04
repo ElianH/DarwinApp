@@ -263,6 +263,7 @@ export default class LogoView extends Component {
 		
 		return (
 			<View style={styles.logoView}>
+
 				<Image style={styles.logoBackgroundImage} source={logoBackgroundImageSource}>
 					
 					<View style={styles.logoBackground}>
