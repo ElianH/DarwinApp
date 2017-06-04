@@ -302,7 +302,7 @@ class ShareMessageExample extends React.Component {
 	}
 		
     return (
-		<View style={{flex:1}}>
+		<View style={{flex:1, flexDirection:'column'}}>
 			<StatusBar hidden={false} backgroundColor='#000' />
 
 			<ListView
@@ -365,6 +365,7 @@ class ShareMessageExample extends React.Component {
 					onMapButtonClick={goToGeneralMapPage}/>
 			</View>
 			{
+				this.sharePanelVisible &&
 				<Animated.View style={styles.sharePanelView}>
 					<Animated.View style={{height: activityDetailsViewHeight, backgroundColor:'#000' }}>
 						<View style={styles.sharePanelInnerView}>
