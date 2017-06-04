@@ -282,7 +282,6 @@ export default class CityMenuView extends Component {
 												<Text style={styles.itemButtonText}>{item.name.toUpperCase()}</Text>
 												<View style={styles.itemButtonSecondLineView}>
 													<Text style={styles.itemButtonTypeText}>{item.itemType.toUpperCase()}</Text>
-													<Text style={styles.itemButtonTypeText}>{this.formatPrice(item.price)}</Text>
 													<Text style={styles.itemButtonDistanceText}>{calculateItemDistance(this.state.lastPosition, item)}</Text>
 												</View>
 											</View>

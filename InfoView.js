@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, ListView, PixelRatio, StyleSheet, Text, View, StatusBar, Alert, TouchableHighlight, Linking, Animated, Easing} from 'react-native';
+import { Dimensions, Image, ListView, PixelRatio, StyleSheet, Text, View, StatusBar, Alert, TouchableHighlight, Linking, Animated, Easing, Share} from 'react-native';
 import ViewPager from 'react-native-viewpager';
 import { Actions } from 'react-native-router-flux';
 import ParallaxScrollView from './ParallaxScrollView'
@@ -8,11 +8,21 @@ import MapView from 'react-native-maps';
 
 export default class InfoView extends Component {
 
+	_shareMessage: Function;
+	_shareText: Function;
+	_showResult: Function;
+	state: any;
+
 	constructor(props) {
 		super(props);
+				
+		this._shareMessage = this._shareMessage.bind(this);
+		this._shareText = this._shareText.bind(this);
+		this._showResult = this._showResult.bind(this);
+
 		this.renderRow = this.renderRow.bind(this);
 		this.animatedValue = new Animated.Value(0);
-		this.state = { sharePanelVisible: false };
+		this.state = { sharePanelVisible: false, result: '' };
 	}
 	
 	handleClick = (url) => { 
@@ -28,6 +38,7 @@ export default class InfoView extends Component {
 	renderRow(row) {
 		
 		const selectedMarkerImageSource = require('./img/Icons/selected_marker_city2.png');
+		const facebookIconImageSource = require('./img/Icons/facebook.png');
 		
 		if ((row != null)&&(row.itemType != null)){
 			switch (row.itemType.toUpperCase()) {
@@ -116,9 +127,12 @@ export default class InfoView extends Component {
 					);
 				case 'FACEBOOK_PAGE':
 					return (
-						<View>
-							<Text>FACEBOOK_PAGE Not supported yet</Text>
-						</View>
+						<TouchableHighlight style={styles.rowViewTouchable} onPress={() => { this.handleClick(row.url); }}>
+							<View style={{flexDirection:'row'}}>
+								<Image style={{width: 25, height: 25, marginRight: 5}} source={facebookIconImageSource} />
+								<Text style={styles.rowViewTouchableText}>{row.text}</Text>
+							</View>
+						</TouchableHighlight>
 					);
 				case 'DEALS':
 					return (
@@ -173,49 +187,119 @@ export default class InfoView extends Component {
 		}
 	}
 
-  render() {
-	  
-    const { onScroll = () => { this.hideSharePanel(); } } = this.props;
-	const twitterIconImageSource = require('./img/Icons/twitter.png');
-	const facebookIconImageShou = require('./img/Icons/facebook.png');
-	const whatsappIconImageSource = require('./img/Icons/whatsapp.png');
-	const instagramIconImageSource = require('./img/Icons/instagram.png');
+	_shareMessage() {
+		Share.share({
+			message: 'React Native | A framework for building native apps using React'
+		})
+		.then(this._showResult)
+		.catch((error) => this.setState({result: 'error: ' + error.message}));
+	}
+
+	_shareText() {
+		const instagramIconImageSource = require('./img/Icons/instagram.png');
+		
+		Share.share({
+			message: 'A framework for building native apps using React https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Norskfolkemuseum_1.jpg/640px-Norskfolkemuseum_1.jpg',
+			url: instagramIconImageSource,
+			title: 'React Native'
+		}, {
+			dialogTitle: 'Share React Native website',
+			excludedActivityTypes: [
+				'com.apple.UIKit.activity.PostToTwitter'
+			],
+			tintColor: 'green'
+		})
+		.then(this._showResult)
+		.catch((error) => this.setState({result: 'error: ' + error.message}));
+	}
+
+	_showResult(result) {
+		if (result.action === Share.sharedAction) {
+			if (result.activityType) {
+				this.setState({result: 'shared with an activityType: ' + result.activityType});
+			} else {
+				this.setState({result: 'shared'});
+			}
+		} else if (result.action === Share.dismissedAction) {
+			this.setState({result: 'dismissed'});
+		}
+	}
 	
-	// navigation
-	const goToInfoPage = (item) => { Actions.infoPage({
+	render() {
+	  
+		const { onScroll = () => { this.hideSharePanel(); } } = this.props;
+		const twitterIconImageSource = require('./img/Icons/twitter.png');
+		const facebookIconImageSource = require('./img/Icons/facebook.png');
+		const whatsappIconImageSource = require('./img/Icons/whatsapp.png');
+		const instagramIconImageSource = require('./img/Icons/instagram.png');
+	
+		// navigation
+		const goToInfoPage = (item) => { Actions.infoPage({
 			localizedStrings: this.props.localizedStrings, 
 			selectedItem: this.props.selectedItem}); 
 		};  
-	const goToGeneralMapPage = () => { Actions.generalMapPage({
-			localizedStrings: this.props.localizedStrings, 
-			markers: [ this.props.selectedItem ],
-			showFilters: false,
-			onMarkerClick: (localizedStrings,item)=>goToInfoPage(item)
-		}); 
-	};
+		const goToGeneralMapPage = () => { Actions.generalMapPage({
+				localizedStrings: this.props.localizedStrings, 
+				markers: [ this.props.selectedItem ],
+				showFilters: false,
+				onMarkerClick: (localizedStrings,item)=>goToInfoPage(item)
+			}); 
+		};
+			
+		// city images (for view pager)
+		const vpds = new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2});
+		var otherImages = [];
+		if (this.props.selectedItem.otherImages != null){
+			otherImages = this.props.selectedItem.otherImages;
+		}
+		var cityImagesDataSource = vpds.cloneWithPages(otherImages);
 		
-	// city images (for view pager)
-	const vpds = new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2});
-	var otherImages = [];
-	if (this.props.selectedItem.otherImages != null){
-		otherImages = this.props.selectedItem.otherImages;
-	}
-	var cityImagesDataSource = vpds.cloneWithPages(otherImages);
+		// info items
+		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+		var infoItems = [];
+		if (this.props.selectedItem.infoItems != null){
+			infoItems = this.props.selectedItem.infoItems;
+		}
+		var infoItemsDataSource = ds.cloneWithRows(infoItems);
+			
+		// share panel animated value
+		shareButtonImage = require('./img/Icons/share.png');
+		const activityDetailsViewHeight = this.animatedValue.interpolate({
+			inputRange: [0, 1],
+			outputRange: [0, 100]
+		});
 	
-	// info items
-	const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-	var infoItems = [];
-	if (this.props.selectedItem.infoItems != null){
-		infoItems = this.props.selectedItem.infoItems;
+/*
+class ShareMessageExample extends React.Component {
+  
+  render() {
+    return (
+      <View>
+        <TouchableHighlight style={styles.wrapper}
+          onPress={this._shareMessage}>
+          <View style={styles.button}>
+            <Text>Click to share message</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.wrapper}
+          onPress={this._shareText}>
+          <View style={styles.button}>
+            <Text>Click to share message, URL and title</Text>
+          </View>
+        </TouchableHighlight>
+        <Text>{this.state.result}</Text>
+      </View>
+    );
+  }
+}
+	*/
+	
+	// nav bar header text
+	const maxTitleLength = 25;
+	var navBarText = this.props.selectedItem.name.toUpperCase();
+	if (navBarText.length > maxTitleLength){
+		navBarText = navBarText.substring(0, maxTitleLength-1) + "...";
 	}
-	var infoItemsDataSource = ds.cloneWithRows(infoItems);
-		
-	// share panel animated value
-	shareButtonImage = require('./img/Icons/share.png');
-	const activityDetailsViewHeight = this.animatedValue.interpolate({
-		inputRange: [0, 1],
-		outputRange: [0, 100]
-	});
 		
     return (
 		<View style={{flex:1}}>
@@ -266,7 +350,7 @@ export default class InfoView extends Component {
 
 					renderStickyHeader={() => (
 						<View style={{height:50, backgroundColor:'#000', alignSelf:'stretch', alignItems:'center', flexDirection:'row', justifyContent:'center'}}>
-							<Text style={styles.navBarText}>{this.props.selectedItem.name.toUpperCase()}</Text>
+							<Text style={styles.navBarText}>{navBarText}</Text>
 						</View>
 					)}/>
 				)}
@@ -284,11 +368,11 @@ export default class InfoView extends Component {
 				<Animated.View style={styles.sharePanelView}>
 					<Animated.View style={{height: activityDetailsViewHeight, backgroundColor:'#000' }}>
 						<View style={styles.sharePanelInnerView}>
-							<TouchableHighlight style={styles.shareButton} onPress={() => { Alert.alert('Twitter'); }}>
+							<TouchableHighlight style={styles.shareButton} onPress={this._shareText}>
 								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={twitterIconImageSource} />
 							</TouchableHighlight>
-							<TouchableHighlight style={styles.shareButton} onPress={() => { Alert.alert('Facebook'); }}>
-								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={facebookIconImageShou} />
+							<TouchableHighlight style={styles.shareButton} onPress={() => { this.handleClick('whatsapp://send?text=Hello%20World!'); }}>
+								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={facebookIconImageSource} />
 							</TouchableHighlight>
 							<TouchableHighlight style={styles.shareButton} onPress={() => { Alert.alert('WhatsApp'); }}>
 								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={whatsappIconImageSource} />
