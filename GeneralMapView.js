@@ -235,19 +235,25 @@ export default class GeneralMapView extends Component {
 							horizontal={true}
 							dataSource={filteredMarkerTypesDataSource}
 							renderRow={(markerType) => {
+								
 								return (
 									<TouchableHighlight style={styles.filterButton} onPress={() => {  
 											this.uniqueMarkerTypes[markerType.typeName].isEnabled = !this.uniqueMarkerTypes[markerType.typeName].isEnabled;
 											Actions.refresh();
 										}}>
-										<Image 
-											style={[styles.filterButtonImage,{ 
-													tintColor:
-														(this.uniqueMarkerTypes[markerType.typeName].isEnabled && '#EEE') ||
-														(!this.uniqueMarkerTypes[markerType.typeName].isEnabled && '#888')												
-													}]}
-											source={{ uri: markerType.imageSrc }}>																
-										</Image>
+										{
+											(this.uniqueMarkerTypes[markerType.typeName].isEnabled &&
+											<Image 
+												resizeMode='contain'
+												style={[styles.filterButtonImage]}
+												source={{ uri: markerType.imageSrc }}/>	)
+											||	
+											(!this.uniqueMarkerTypes[markerType.typeName].isEnabled &&
+											<Image 
+												resizeMode='contain'
+												style={[styles.filterButtonImage,{tintColor:'#888', marginTop:3}]}
+												source={{ uri: markerType.imageSrc }}/> )
+										}
 									</TouchableHighlight >
 								)
 							}}>
