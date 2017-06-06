@@ -34,5 +34,7 @@ module.exports = {
 		emailUs: 'Email us',
 		english: 'English',
 		spanish: 'Spanish',
+		
+		share: 'Share'
 	}
 }

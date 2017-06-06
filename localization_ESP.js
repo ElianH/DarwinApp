@@ -34,5 +34,7 @@ module.exports = {
 		emailUs: 'Envíanos un email',
 		english: 'Inglés',
 		spanish: 'Español',
+		
+		share: 'Compartir'
 	}
 }

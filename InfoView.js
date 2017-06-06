@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, Image, ListView, PixelRatio, StyleSheet, Text, View, StatusBar, Alert, TouchableHighlight, Linking, Animated, Easing, Share} from 'react-native';
-import ViewPager from 'react-native-viewpager';
+import ViewPager from './ViewPager';
 import { Actions } from 'react-native-router-flux';
 import ParallaxScrollView from './ParallaxScrollView'
 import NavBar from './NavBar'
@@ -8,17 +8,24 @@ import MapView from 'react-native-maps';
 
 export default class InfoView extends Component {
 
-	_shareMessage: Function;
-	_shareText: Function;
-	_showResult: Function;
+	shareOnFacebook : Function;
+	shareOnTwitter : Function;
+	shareOnWhatsApp : Function;
+	shareOnInstagram : Function;
+	shareMore : Function;
+	showShareResult : Function;
+	
 	state: any;
 
 	constructor(props) {
 		super(props);
 				
-		this._shareMessage = this._shareMessage.bind(this);
-		this._shareText = this._shareText.bind(this);
-		this._showResult = this._showResult.bind(this);
+		this.shareOnFacebook = this.shareOnFacebook.bind(this);
+		this.shareOnTwitter = this.shareOnTwitter.bind(this);
+		this.shareOnWhatsApp = this.shareOnWhatsApp.bind(this);
+		this.shareOnInstagram = this.shareOnInstagram.bind(this);
+		this.shareMore = this.shareMore.bind(this);
+		this.showShareResult = this.showShareResult.bind(this);
 
 		this.renderRow = this.renderRow.bind(this);
 		this.animatedValue = new Animated.Value(0);
@@ -166,6 +173,7 @@ export default class InfoView extends Component {
 				}
 			).start();
 			this.sharePanelVisible = true;
+			Actions.refresh();
 		}
 		else {
 			this.hideSharePanel();
@@ -187,33 +195,35 @@ export default class InfoView extends Component {
 		}
 	}
 
-	_shareMessage() {
-		Share.share({
-			message: 'React Native | A framework for building native apps using React'
-		})
-		.then(this._showResult)
-		.catch((error) => this.setState({result: 'error: ' + error.message}));
+	shareOnFacebook() {
 	}
-
-	_shareText() {
-		const instagramIconImageSource = require('./img/Icons/instagram.png');
-		
+	
+	shareOnTwitter() {
+	}
+	
+	shareOnInstagram() {
+	}
+	
+	shareOnWhatsApp() {
+		var urlEncodedString = encodeURIComponent(this.props.selectedItem.shareText);
+		this.handleClick('whatsapp://send?text='+urlEncodedString);
+	}
+	
+	shareMore() {
 		Share.share({
-			message: 'A framework for building native apps using React https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Norskfolkemuseum_1.jpg/640px-Norskfolkemuseum_1.jpg',
-			url: instagramIconImageSource,
-			title: 'React Native'
+			message: this.props.selectedItem.shareText,
+			url: this.props.selectedItem.mainImageSrc,
+			title: this.props.selectedItem.name
 		}, {
-			dialogTitle: 'Share React Native website',
-			excludedActivityTypes: [
-				'com.apple.UIKit.activity.PostToTwitter'
-			],
+			dialogTitle: this.props.localizedStrings.share,
+			excludedActivityTypes: [],
 			tintColor: 'green'
 		})
-		.then(this._showResult)
+		.then(this.showShareResult)
 		.catch((error) => this.setState({result: 'error: ' + error.message}));
 	}
 
-	_showResult(result) {
+	showShareResult(result) {
 		if (result.action === Share.sharedAction) {
 			if (result.activityType) {
 				this.setState({result: 'shared with an activityType: ' + result.activityType});
@@ -232,6 +242,7 @@ export default class InfoView extends Component {
 		const facebookIconImageSource = require('./img/Icons/facebook.png');
 		const whatsappIconImageSource = require('./img/Icons/whatsapp.png');
 		const instagramIconImageSource = require('./img/Icons/instagram.png');
+		const shareMoreIconImageSource = require('./img/Icons/shareMore.png');
 	
 		// navigation
 		const goToInfoPage = (item) => { Actions.infoPage({
@@ -268,126 +279,104 @@ export default class InfoView extends Component {
 			inputRange: [0, 1],
 			outputRange: [0, 100]
 		});
-	
-/*
-class ShareMessageExample extends React.Component {
-  
-  render() {
-    return (
-      <View>
-        <TouchableHighlight style={styles.wrapper}
-          onPress={this._shareMessage}>
-          <View style={styles.button}>
-            <Text>Click to share message</Text>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.wrapper}
-          onPress={this._shareText}>
-          <View style={styles.button}>
-            <Text>Click to share message, URL and title</Text>
-          </View>
-        </TouchableHighlight>
-        <Text>{this.state.result}</Text>
-      </View>
-    );
-  }
-}
-	*/
-	
-	// nav bar header text
-	const maxTitleLength = 25;
-	var navBarText = this.props.selectedItem.name.toUpperCase();
-	if (navBarText.length > maxTitleLength){
-		navBarText = navBarText.substring(0, maxTitleLength-1) + "...";
-	}
 		
-    return (
-		<View style={{flex:1, flexDirection:'column'}}>
-			<StatusBar hidden={false} backgroundColor='#000' />
+		// nav bar header text
+		const maxTitleLength = 25;
+		var navBarText = this.props.selectedItem.name.toUpperCase();
+		if (navBarText.length > maxTitleLength){
+			navBarText = navBarText.substring(0, maxTitleLength-1) + "...";
+		}
+			
+		return (
+			<View style={{flex:1, flexDirection:'column'}}>
+				<StatusBar hidden={false} backgroundColor='#000' />
 
-			<ListView
-				ref="ListView"
-				style={styles.container}
-				dataSource={ infoItemsDataSource }
-				renderRow={this.renderRow}		 
-				initialListSize={300} 
-				removeClippedSubviews={false}
-				renderHeader={() => 
-					<View style={{ backgroundColor:'#000', flexDirection:'column', justifyContent: 'space-between', padding:15}}>			
-						<Text style={{ color:'#F4F4F4', fontSize:27, fontFamily:'Brandon_blk'}}>{this.props.selectedItem.name.toUpperCase()}</Text>
-						<View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-							<Text style={{ color:'#888', fontSize:16, fontFamily:'OpenSans-Regular'}}>{this.props.selectedItem.shortDescription}</Text>
-							<TouchableHighlight style={styles.openSharePanelButton} onPress={() => { this.toggleSharePanel(); }}>
-								<Image style={styles.openSharePanelButtonImage} resizeMode='contain' source={shareButtonImage} />
-							</TouchableHighlight>
+				<ListView
+					ref="ListView"
+					style={styles.container}
+					dataSource={ infoItemsDataSource }
+					renderRow={this.renderRow}		 
+					initialListSize={300} 
+					removeClippedSubviews={false}
+					renderHeader={() => 
+						<View style={{ backgroundColor:'#000', flexDirection:'column', justifyContent: 'space-between', padding:15}}>			
+							<Text style={{ color:'#F4F4F4', fontSize:27, fontFamily:'Brandon_blk'}}>{this.props.selectedItem.name.toUpperCase()}</Text>
+							<View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+								<Text style={{ color:'#888', fontSize:16, fontFamily:'OpenSans-Regular'}}>{this.props.selectedItem.shortDescription}</Text>
+								<TouchableHighlight style={styles.openSharePanelButton} onPress={() => { this.toggleSharePanel(); }}>
+									<Image style={styles.openSharePanelButtonImage} resizeMode='contain' source={shareButtonImage} />
+								</TouchableHighlight>
+							</View>
 						</View>
-					</View>
-				}
+					}
 
-				renderScrollComponent={props => (
-				  <ParallaxScrollView
-					onScroll={onScroll}
-					headerBackgroundColor="#333"
-					fadeOutForeground={false}
-					stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
-					parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
-					backgroundSpeed={10}
-					
-					renderForeground={() => (
-						<View key="background" style={{ width: window.width, height: PARALLAX_HEADER_HEIGHT}}>
-							<ViewPager
-								dataSource={cityImagesDataSource}
-								renderPage={(cityImage) =>
-									<View style={styles.cityBackgroundImageView}>
-										<Image style={styles.cityBackgroundImage}
-											source={{uri: cityImage.imageSrc}}>
-										</Image>
-									</View>
-								}/>
+					renderScrollComponent={props => (
+					  <ParallaxScrollView
+						onScroll={onScroll}
+						headerBackgroundColor="#333"
+						fadeOutForeground={false}
+						stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
+						parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
+						backgroundSpeed={10}
+						
+						renderForeground={() => (
+							<View key="background" style={{ width: window.width, height: PARALLAX_HEADER_HEIGHT}}>
+								<ViewPager
+									dataSource={cityImagesDataSource}
+									renderPage={(cityImage) =>
+										<View style={styles.cityBackgroundImageView}>
+											<Image style={styles.cityBackgroundImage}
+												source={{uri: cityImage.imageSrc}}>
+											</Image>
+										</View>
+									}/>
 
-						</View>
+							</View>
+						)}
+
+						renderStickyHeader={() => (
+							<View style={{height:50, backgroundColor:'#000', alignSelf:'stretch', alignItems:'center', flexDirection:'row', justifyContent:'center'}}>
+								<Text style={styles.navBarText}>{navBarText}</Text>
+							</View>
+						)}/>
 					)}
-
-					renderStickyHeader={() => (
-						<View style={{height:50, backgroundColor:'#000', alignSelf:'stretch', alignItems:'center', flexDirection:'row', justifyContent:'center'}}>
-							<Text style={styles.navBarText}>{navBarText}</Text>
-						</View>
-					)}/>
-				)}
-			/>
-			<View style={styles.navBarView}>
-				<NavBar
-					title='' 
-					style={styles.navBar}
-					backgroundColor='transparent'
-					localizedStrings={this.props.localizedStrings}
-					enableSearch={false}
-					onMapButtonClick={goToGeneralMapPage}/>
-			</View>
-			{
-				this.sharePanelVisible &&
-				<Animated.View style={styles.sharePanelView}>
-					<Animated.View style={{height: activityDetailsViewHeight, backgroundColor:'#000' }}>
-						<View style={styles.sharePanelInnerView}>
-							<TouchableHighlight style={styles.shareButton} onPress={this._shareText}>
-								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={twitterIconImageSource} />
-							</TouchableHighlight>
-							<TouchableHighlight style={styles.shareButton} onPress={() => { this.handleClick('whatsapp://send?text=Hello%20World!'); }}>
-								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={facebookIconImageSource} />
-							</TouchableHighlight>
-							<TouchableHighlight style={styles.shareButton} onPress={() => { Alert.alert('WhatsApp'); }}>
-								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={whatsappIconImageSource} />
-							</TouchableHighlight>
-							<TouchableHighlight style={styles.shareButton} onPress={() => { Alert.alert('Instagram'); }}>
-								<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={instagramIconImageSource} />
-							</TouchableHighlight>
-						</View>
+				/>
+				<View style={styles.navBarView}>
+					<NavBar
+						title='' 
+						style={styles.navBar}
+						backgroundColor='transparent'
+						localizedStrings={this.props.localizedStrings}
+						enableSearch={false}
+						onMapButtonClick={goToGeneralMapPage}/>
+				</View>
+				{
+					this.sharePanelVisible &&
+					<Animated.View style={styles.sharePanelView}>
+						<Animated.View style={{height: activityDetailsViewHeight, backgroundColor:'#000' }}>
+							<View style={styles.sharePanelInnerView}>
+								<TouchableHighlight style={styles.shareButton} onPress={this.shareOnTwitter}>
+									<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={twitterIconImageSource} />
+								</TouchableHighlight>
+								<TouchableHighlight style={styles.shareButton} onPress={this.shareOnFacebook}>
+									<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={facebookIconImageSource} />
+								</TouchableHighlight>
+								<TouchableHighlight style={styles.shareButton} onPress={this.shareOnWhatsApp}>
+									<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={whatsappIconImageSource} />
+								</TouchableHighlight>
+								<TouchableHighlight style={styles.shareButton} onPress={this.shareOnInstagram}>
+									<Image style={styles.shareButtonImage} resizeMode='contain' borderRadius={35} source={instagramIconImageSource} />
+								</TouchableHighlight>
+								<TouchableHighlight style={styles.shareButton} onPress={this.shareMore}>
+									<Image style={[styles.shareButtonImage,{tintColor:'#EEE'}]} resizeMode='contain' borderRadius={35} source={shareMoreIconImageSource} />
+								</TouchableHighlight>
+							</View>
+						</Animated.View>
 					</Animated.View>
-				</Animated.View>
-			}
-		</View>
-    );
-  }
+				}
+			</View>
+		);
+	}
 }
 
 const window = Dimensions.get('window');
@@ -524,8 +513,8 @@ const styles = StyleSheet.create({
 		borderRadius: 35,
 	},
 	shareButtonImage:{
-		width: 70,
-		height: 70,
+		width: 60,
+		height: 60,
 	},
 	sharePanelView:{
 		...StyleSheet.absoluteFillObject,

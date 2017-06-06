@@ -1,4 +1,4 @@
-package com.darwinapp;
+package com.wire.mapas.darwin;
 
 import android.app.Application;
 

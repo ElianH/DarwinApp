@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, TouchableHighlight, View, StyleSheet, ListView, Image, Dimensions, Alert, Linking} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Carousel from 'react-native-carousel';
-import ViewPager from 'react-native-viewpager';
+import ViewPager from './ViewPager';
 import NavBar from './NavBar';
 import LinearGradient from 'react-native-linear-gradient';
 
