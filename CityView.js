@@ -88,20 +88,11 @@ export default class CityView extends Component {
 						renderHeader={() => 
 							<View style={styles.cityListViewHeader}>
 								<TouchableHighlight style={styles.aroundMeButton} onPress={() => goToGeneralMapPage(true) }>
-									<Image style={styles.aroundMeButtonBackgroundImage} borderRadius={6} source={{uri: this.props.selectedCity.mainImageSrc}}>
-										<LinearGradient 
-											start={{x: 0.0, y: 0.0}} 
-											end={{x: 0.0, y: 1.0}} 
-											borderRadius={6} 
-											colors={["#0007", "#000D"]} 
-											locations={[-0.5,1.3]} 
-											style={styles.linearGradient}
-											>
-											<View style={styles.aroundMeButtonTextView}>
-												<Text style={styles.aroundMeButtonText}>{this.props.localizedStrings.nearMe.toUpperCase()}</Text>
-												<Image style={styles.cityMenuIconImage} resizeMode='contain' source={iconNearMeImageSource}/>
-											</View>
-										</LinearGradient>
+									<Image style={styles.aroundMeButtonBackgroundImage} borderRadius={6} source={{uri: this.props.selectedCity.nearMeImageSrc}}>
+										<View style={styles.aroundMeButtonTextView}>
+											<Image style={styles.cityMenuIconImage} resizeMode='contain' source={iconNearMeImageSource}/>
+											<Text style={styles.aroundMeButtonText}>{this.props.localizedStrings.nearMe.toUpperCase()}</Text>
+										</View>
 									</Image>
 								</TouchableHighlight>
 							</View>
@@ -144,7 +135,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-start',
 		flexDirection:'row',
 		height: 100,
-		width: deviceWidth,
+		width: deviceWidth-6,
 	},
 	aroundMeButton: {
 		borderRadius: 6,
@@ -180,7 +171,7 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 		alignSelf: 'center',
 		fontFamily: 'OpenSans-Bold',
-		color: '#F4F4F4'
+		color: '#EEE'
 	},
 	cityMenuButton:{
 		width: (deviceWidth/2) - 8,
@@ -198,14 +189,13 @@ const styles = StyleSheet.create({
 	cityMenuIconImage: {
 		width: 30,
 		height: 30,
-		margin: 10,
+		marginBottom: 4,
 		alignSelf: 'center',
 	},
 	cityMenuButtonText:{
 		fontSize: 15,
-		marginLeft: 10,
 		alignSelf: 'center',
 		fontFamily: 'OpenSans-Bold',
-		color: '#F4F4F4'
+		color: '#EEE'
 	},
 });

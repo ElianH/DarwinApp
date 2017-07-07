@@ -98,24 +98,15 @@ export default class CitiesView extends Component {
 					return (
 						<TouchableHighlight style={styles.cityButton} onPress={() => { this.goToCityPage(localizedStrings, city) }}>
 							<Image style={styles.cityButtonBackgroundImage} borderRadius={6} source={{uri: city.mainImageSrc}}>
-								<LinearGradient 
-									start={{x: 0.0, y: 0.0}} 
-									end={{x: 0.0, y: 1.0}} 
-									borderRadius={6} 
-									colors={["transparent", "#000D"]} 
-									locations={[-0.5,1.3]} 
-									style={styles.linearGradient}
-									>
-									<View  style={styles.cityButtonBackgroundImageView}>
-										<View style={styles.cityButtonTextView}>
-											<Text style={styles.cityButtonText}>{city.name.toUpperCase()}</Text>
-										</View>
-										<Text style={styles.cityButtonShortDescriptionText}>{city.shortDescription}</Text>
-										<TouchableHighlight style={styles.cityButtonIconsView} onPress={() => { this.goToInfoPage(localizedStrings, city) }}>
-											<Image style={styles.cityButtonInfoIconImage} source={infoIconImageSource}/>
-										</TouchableHighlight>
+								<View  style={styles.cityButtonBackgroundImageView}>
+									<View style={styles.cityButtonTextView}>
+										<Text style={styles.cityButtonText}>{city.name.toUpperCase()}</Text>
 									</View>
-								</LinearGradient>
+									<Text style={styles.cityButtonShortDescriptionText}>{city.shortDescription}</Text>
+									<TouchableHighlight style={styles.cityButtonIconsView} onPress={() => { this.goToInfoPage(localizedStrings, city) }}>
+										<Image style={styles.cityButtonInfoIconImage} source={infoIconImageSource}/>
+									</TouchableHighlight>
+								</View>
 							</Image>
 						</TouchableHighlight>
 					)
@@ -165,17 +156,18 @@ const styles = StyleSheet.create({
 	cityButtonShortDescriptionText: {
 		fontSize: 20,
 		marginLeft: 10,
-		marginTop: -5,
+		marginTop: -10,
+		marginBottom: 10,
 		alignSelf: 'flex-start',
 		fontFamily: 'OpenSans-Regular',
-		color: '#888'
+		color: '#EEE'
 	},
 	cityButtonText: {
 		fontSize: 40,
 		marginLeft: 10,
 		alignSelf: 'flex-start',
 		fontFamily: 'Brandon_blk',
-		color: '#F4F4F4'
+		color: '#EEE'
 	},
 	cityButtonIconsView: {
 		height:40,

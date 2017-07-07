@@ -163,14 +163,14 @@ const styles = StyleSheet.create({
 		flex:1,
 	},
 	navBarBackButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',
         alignItems: 'center',
 	},
 	navBarConfigButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},	
 	navBarSearchButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
 		tintColor:'#EEE',
 	},		
 	navBarMapButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
 		tintColor:'#EEE',
 	},
 	navBarFilterButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
 		tintColor:'#EEE',
 	},
 	navBarInfoButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
 		color:'#EEE'
 	},
 	navBarCloseSearchButton: {
-		width:45,
+		width:40,
 		height:50,
 		flexDirection: 'column',
 		justifyContent: 'center',

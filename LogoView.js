@@ -272,7 +272,7 @@ export default class LogoView extends Component {
 					{
 						(this.state.isLoading) &&
 						<View style={styles.languages}>
-							<ActivityIndicator style={styles.loading} size="large" color='#F4F4F4' />
+							<ActivityIndicator style={styles.loading} size="large" color='#EEE' />
 						</View>
 					}
 					{
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		fontFamily: 'OpenSans-Bold',
 		textAlign: 'center',
-		color: '#F4F4F4'
+		color: '#EEE'
 	},
 	logoBackground: {
 		flex: 4,

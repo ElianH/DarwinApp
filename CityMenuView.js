@@ -151,7 +151,8 @@ export default class CityMenuView extends Component {
 		}
 		const toggleFilter = (filterItem) => { this.itemTypesMap[filterItem.name].isSelected = !this.itemTypesMap[filterItem.name].isSelected; Actions.refresh(); }
 		const sortByDistance = () => { this.sortBy = 'distance'; Actions.refresh(); }
-		const sortByPrice = () => { this.sortBy = 'price'; Actions.refresh(); }
+		const sortByNameAsc = () => { this.sortBy = 'nameAsc'; Actions.refresh(); }
+		const sortByNameDesc = () => { this.sortBy = 'nameDesc'; Actions.refresh(); }
 		var filterText = this.text.toLowerCase();
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		var newFilter = this.props.selectedCityMenu.items.slice().filter((item)=> { 
@@ -170,16 +171,14 @@ export default class CityMenuView extends Component {
 		if (this.sortBy != ''){
 			newFilter = newFilter.slice().sort((item1, item2)=> { 
 				switch(this.sortBy){
-					case 'price':
-						var item1Price = item1.price;
-						if (item1Price == null){
-							item1Price = 10;
-						}
-						var item2Price = item2.price;
-						if (item2Price == null){
-							item2Price = 10;
-						}
-						return item1Price-item2Price;				
+					case 'nameAsc':
+						if(item1.name < item2.name) return -1;
+						if(item1.name > item2.name) return 1;
+						return 0;
+					case 'nameDesc':
+						if(item1.name > item2.name) return -1;
+						if(item1.name < item2.name) return 1;
+						return 0;
 					case 'distance':
 						var distItem1 = calculateItemDistanceNumber(this.state.lastPosition, item1);
 						var distItem2 = calculateItemDistanceNumber(this.state.lastPosition, item2);
@@ -234,9 +233,15 @@ export default class CityMenuView extends Component {
 									</View>
 								</TouchableHighlight>
 								<View style={styles.sortByMiddleLine} />
-								<TouchableHighlight style={this.sortingStyle('price')} onPress={sortByPrice}>
+								<TouchableHighlight style={this.sortingStyle('nameAsc')} onPress={sortByNameAsc}>
 									<View style={styles.sortByButtonView}>
-										<Text style={this.sortingTextStyle('price')}>{this.props.localizedStrings.lowestPrice.toUpperCase()}</Text>
+										<Text style={this.sortingTextStyle('nameAsc')}>{this.props.localizedStrings.sortByNameAsc.toUpperCase()}</Text>
+									</View>
+								</TouchableHighlight>
+								<View style={styles.sortByMiddleLine} />
+								<TouchableHighlight style={this.sortingStyle('nameDesc')} onPress={sortByNameDesc}>
+									<View style={styles.sortByButtonView}>
+										<Text style={this.sortingTextStyle('nameDesc')}>{this.props.localizedStrings.sortByNameDesc.toUpperCase()}</Text>
 									</View>
 								</TouchableHighlight>
 							</View>
@@ -349,26 +354,26 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 	},
 	itemButtonText: {
-		fontSize: 20,
-		margin:5,
-		color:'#F4F4F4',
+		fontSize: 26,
+		margin:10,
+		marginBottom:28,
+		color:'#EEE',
 		fontFamily: 'Brandon_blk',
 	},
 	itemButtonSecondLineView: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-		
+        alignSelf: 'flex-end'
 	},
 	itemButtonTypeText: {
 		fontSize: 14,
 		margin:5,
-		color:'#F4F4F4',
+		color:'#EEE',
 		fontFamily: 'OpenSans-Regular',
 	},
 	itemButtonDistanceText: {
 		fontSize: 14,
 		margin:5,
-		color:'#F4F4F4',
+		color:'#EEE',
 		fontFamily: 'OpenSans-Regular',
 	},
 	removeFiltersButton: {

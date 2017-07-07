@@ -12,7 +12,8 @@ module.exports = {
 		close: 'Cerrar',
 		sortBy: 'Ordernar por:',
 		showOnly: 'Mostrar sólo:',
-		lowestPrice: 'Menor precio',
+		sortByNameAsc: 'A-Z',
+		sortByNameDesc: 'Z-A',
 		shortestDistance: 'Distancia',
 		
 		information: 'Información',
@@ -35,6 +36,12 @@ module.exports = {
 		english: 'Inglés',
 		spanish: 'Español',
 		
-		share: 'Compartir'
+		share: 'Compartir',
+		
+		darwinInfoContactMail: 'mailto:darwintravelapp@gmail.com?subject=DarwinApp',
+		darwinInfoUrlAboutDarwin: 'https://s3-sa-east-1.amazonaws.com/wirestorage/Static+html+content/privacypolicy.htm',
+		darwinInfoUrlTermsAndConditions: 'https://s3-sa-east-1.amazonaws.com/wirestorage/Static+html+content/privacypolicy.htm',
+		darwinInfoUrlPrivacyPolicy: 'https://s3-sa-east-1.amazonaws.com/wirestorage/Static+html+content/privacypolicy.htm',
+		darwinInfoUrlFacebook: 'https://www.facebook.com'
 	}
 }

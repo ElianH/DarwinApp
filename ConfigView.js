@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, StyleSheet, ListView, Alert, Image, AsyncStorage} from 'react-native';
+import { Text, TouchableHighlight, View, StyleSheet, ListView, Alert, Image, AsyncStorage, Linking} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import NavBar from './NavBar';
 
@@ -161,6 +161,16 @@ export default class ConfigView extends Component {
 			console.error('Error saving citiesJson: ' + error);
 		}
 	}
+	
+	handleClick = (url) => { 
+		Linking.canOpenURL(url).then(supported => { 
+			if (supported) { 
+				Linking.openURL(url); 
+			} else { 
+				console.log('Don\'t know how to open URI: ' + url); 
+			} 
+		}); 
+	}; 
   
 	render() {
 
@@ -215,23 +225,23 @@ export default class ConfigView extends Component {
 		items.push(changeLanguageItem);
 		
 		var aboutDarwinItem = ({ name : localizedStrings.aboutDarwin });
-		aboutDarwinItem.action = () => Alert.alert('', aboutDarwinItem.name);
+		aboutDarwinItem.action = () => this.handleClick(localizedStrings.darwinInfoUrlAboutDarwin);
 		items.push(aboutDarwinItem);
 		
 		var termsAndConditionsItem = ({ name : localizedStrings.termsAndConditions });
-		termsAndConditionsItem.action = () => Alert.alert('', termsAndConditionsItem.name);
+		termsAndConditionsItem.action = () => this.handleClick(localizedStrings.darwinInfoUrlTermsAndConditions)
 		items.push(termsAndConditionsItem);
 		
 		var privacyPolicyItem = ({ name : localizedStrings.privacyPolicy });
-		privacyPolicyItem.action = () => Alert.alert('', privacyPolicyItem.name);
+		privacyPolicyItem.action = () => this.handleClick(localizedStrings.darwinInfoUrlPrivacyPolicy)
 		items.push(privacyPolicyItem);
 		
 		var followUsOnFacebookItem = ({ name : localizedStrings.followUsOnFacebook });
-		followUsOnFacebookItem.action = () => Alert.alert('', followUsOnFacebookItem.name);
+		followUsOnFacebookItem.action = () => this.handleClick(localizedStrings.darwinInfoUrlFacebook)
 		items.push(followUsOnFacebookItem);
 		
 		var emailUsItem = ({ name : localizedStrings.emailUs });
-		emailUsItem.action = () => Alert.alert('', emailUsItem.name);
+		emailUsItem.action = () => this.handleClick(localizedStrings.darwinInfoContactMail)
 		items.push(emailUsItem);
 	}
 	else {

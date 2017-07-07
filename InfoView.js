@@ -46,6 +46,10 @@ export default class InfoView extends Component {
 		
 		const selectedMarkerImageSource = require('./img/Icons/selected_marker_city2.png');
 		const facebookIconImageSource = require('./img/Icons/facebook.png');
+		const phoneIconImageSource = require('./img/Icons/phone.png');
+		const webIconImageSource = require('./img/Icons/web.png');
+		const emailIconImageSource = require('./img/Icons/email.png');
+		const weatherIconImageSource = require('./img/Icons/weather.png');
 		
 		if ((row != null)&&(row.itemType != null)){
 			switch (row.itemType.toUpperCase()) {
@@ -81,7 +85,8 @@ export default class InfoView extends Component {
 				case 'PHONE':
 					return (
 						<TouchableHighlight style={styles.rowViewTouchable} onPress={() => { this.handleClick(row.number); }}>
-							<View>
+							<View style={{flexDirection:'row'}}>
+								<Image resizeMode='contain' style={{width: 25, height: 25, marginRight: 5}} source={phoneIconImageSource} />
 								<Text style={styles.rowViewTouchableText}>{row.text}</Text>
 							</View>
 						</TouchableHighlight>
@@ -89,7 +94,8 @@ export default class InfoView extends Component {
 				case 'WEBSITE':
 					return (
 						<TouchableHighlight style={styles.rowViewTouchable} onPress={() => { this.handleClick(row.url); }}>
-							<View>
+							<View style={{flexDirection:'row'}}>
+								<Image resizeMode='contain' style={{width: 25, height: 25, marginRight: 5}} source={webIconImageSource} />
 								<Text style={styles.rowViewTouchableText}>{row.text}</Text>
 							</View>
 						</TouchableHighlight>
@@ -97,7 +103,17 @@ export default class InfoView extends Component {
 				case 'EMAIL':
 					return (
 						<TouchableHighlight style={styles.rowViewTouchable} onPress={() => { this.handleClick(row.email); }}>
-							<View>
+							<View style={{flexDirection:'row'}}>
+								<Image resizeMode='contain' style={{width: 25, height: 25, marginRight: 5}} source={emailIconImageSource} />
+								<Text style={styles.rowViewTouchableText}>{row.text}</Text>
+							</View>
+						</TouchableHighlight>
+					);
+				case 'WEATHER':
+					return (
+						<TouchableHighlight style={styles.rowViewTouchable} onPress={() => { this.handleClick(row.url); }}>
+							<View style={{flexDirection:'row'}}>
+								<Image resizeMode='contain' style={{width: 25, height: 25, marginRight: 5}} source={weatherIconImageSource} />
 								<Text style={styles.rowViewTouchableText}>{row.text}</Text>
 							</View>
 						</TouchableHighlight>
@@ -141,22 +157,19 @@ export default class InfoView extends Component {
 							</View>
 						</TouchableHighlight>
 					);
-				case 'DEALS':
+				case 'IMAGE':
 					return (
 						<View>
-							<Text>DEALS Not supported yet</Text>
+							<Image resizeMode='contain' style={{ marginTop: 3,  marginBottom: 3, width: window.width - 10, height: row.imageHeight}} source={{uri: row.imageSrc}} />
 						</View>
 					);
-				case 'BOOKING':
+				case 'IMAGE_LINK':
 					return (
-						<View>
-							<Text>BOOKING Not supported yet</Text>
-						</View>
-					);
-				case 'SPACE':
-					return (
-						<View style={{height:100}}>
-						</View>
+						<TouchableHighlight style={styles.rowViewImageTouchable} onPress={() => { this.handleClick(row.url); }}>
+							<View>
+								<Image resizeMode='contain' style={{ marginTop: 3,  marginBottom: 3, width: window.width - 10, height: row.imageHeight}} source={{uri: row.imageSrc}} />
+							</View>
+						</TouchableHighlight>
 					);
 			}
 		}
@@ -299,14 +312,14 @@ export default class InfoView extends Component {
 					initialListSize={300} 
 					removeClippedSubviews={false}
 					renderHeader={() => 
-						<View style={{ backgroundColor:'#000', flexDirection:'column', justifyContent: 'space-between', padding:15}}>			
-							<Text style={{ color:'#F4F4F4', fontSize:27, fontFamily:'Brandon_blk'}}>{this.props.selectedItem.name.toUpperCase()}</Text>
-							<View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-								<Text style={{ color:'#888', fontSize:16, fontFamily:'OpenSans-Regular'}}>{this.props.selectedItem.shortDescription}</Text>
+						<View style={{ backgroundColor:'#000', flexDirection:'column'}}>			
+							<View style={{flexDirection:'row', justifyContent: 'space-between', marginLeft:25, marginRight:25, marginTop:8}}>
+								<Text style={{ color:'#EEE', fontSize:29, fontFamily:'Brandon_blk', width:window.width-80}}>{this.props.selectedItem.name.toUpperCase()}</Text>
 								<TouchableHighlight style={styles.openSharePanelButton} onPress={() => { this.toggleSharePanel(); }}>
 									<Image style={styles.openSharePanelButtonImage} resizeMode='contain' source={shareButtonImage} />
 								</TouchableHighlight>
 							</View>
+							<Text style={styles.headerShortDescription}>{this.props.selectedItem.shortDescription}</Text>
 						</View>
 					}
 
@@ -476,8 +489,8 @@ const styles = StyleSheet.create({
 	},
 	rowView: {
 		marginTop: 10,
-		paddingLeft: 15,
-		paddingRight: 15,
+		paddingLeft: 25,
+		paddingRight: 25,
 	},
 	rowViewTouchable: {
 		marginTop: 2,
@@ -493,19 +506,35 @@ const styles = StyleSheet.create({
 		fontFamily: 'OpenSans-Regular',
 		color: '#888'
 	},
+	rowViewImageTouchable: {
+		marginTop: 2,
+		padding:5,
+		marginBottom: 2,
+		marginLeft: 15,
+		marginRight: 15,
+	},
 	rowViewMap: {
 		height:200,
 		margin: 15,
 		opacity: 0.8,
 	},
+	headerShortDescription:{ 
+		color:'#888', 
+		fontSize:16, 
+		fontFamily:'OpenSans-Regular', 
+		marginTop:-3, 
+		marginLeft:26, 
+		marginRight:26,
+		marginBottom:12,
+	},
 	openSharePanelButton:{
-		margin:2,
-		alignSelf:'flex-end',
+		width:30,
+		marginTop:5
 	},
 	openSharePanelButtonImage:{
 		width: 30,
 		height: 30,
-		tintColor: '#F4F4F4', 
+		tintColor: '#EEE', 
 	},
 	shareButton:{
 		width: 70,

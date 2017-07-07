@@ -12,7 +12,8 @@ module.exports = {
 		close: 'Close',
 		sortBy: 'Sort by',
 		showOnly: 'Only',
-		lowestPrice: 'Lowest Price',
+		sortByNameAsc: 'A-Z',
+		sortByNameDesc: 'Z-A',
 		shortestDistance: 'Distance',
 		
 		information: 'Information',
@@ -20,7 +21,7 @@ module.exports = {
 		planYourTrip: 'Plan your trip',
 		weather: 'Weather',
 				
-		nearMe: 'Near me',
+		nearMe: 'Around me',
 		
 		offlineMode: 'Offline mode',
 		offlineModeAlertText: 'Unable to reach the network, starting app in offline mode...',
@@ -35,6 +36,12 @@ module.exports = {
 		english: 'English',
 		spanish: 'Spanish',
 		
-		share: 'Share'
+		share: 'Share',
+		
+		darwinInfoContactMail: 'mailto:darwintravelapp@gmail.com?subject=DarwinApp',
+		darwinInfoUrlAboutDarwin: 'https://s3-sa-east-1.amazonaws.com/wirestorage/Static+html+content/privacypolicy.htm',
+		darwinInfoUrlTermsAndConditions: 'https://s3-sa-east-1.amazonaws.com/wirestorage/Static+html+content/privacypolicy.htm',
+		darwinInfoUrlPrivacyPolicy: 'https://s3-sa-east-1.amazonaws.com/wirestorage/Static+html+content/privacypolicy.htm',
+		darwinInfoUrlFacebook: 'https://www.facebook.com'
 	}
 }

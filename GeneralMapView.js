@@ -197,6 +197,15 @@ export default class GeneralMapView extends Component {
 						showsBuildings={false}
 						showsTraffic={false}
 						region={this.state.region}
+						customMapStyle={[ 
+											{
+												featureType: "poi",
+												elementType: "labels",
+												stylers: [{ 
+													visibility: "off" 
+												}]
+											}
+										]}
 						onRegionChange={this.onRegionChange}>
 							{this.markers.map(marker => {
 								//Alert.alert('Page' + this.state.animatedCurrentPage);
