@@ -135,23 +135,40 @@ export default class LogoView extends Component {
 					uris.push(cityMenu.backgroundImageSrc);
 				}
 				// load city menu item images
+				/*
 				cityMenu.items.slice().map((item)=>{
 					uris.push(item.mainImageSrc);
 					if (item.otherImages != null){
 						item.otherImages.slice().map((otherImage)=>uris.push(otherImage.imageSrc));
 					}
-				});
+				});*/
 			});
 		});
 		
 		var imagePrefetch = [];
+		
+		var urisImagePrefetch = uris.map(uri => Image.prefetch(uri));
+		Promise.all(urisImagePrefetch)
+			   .then(() => { 
+					this.setState({
+						isLoading: false
+					});
+			   })
+			   .catch(error => {
+				   console.log('error...', error)							   
+					this.setState({
+						isLoading: false
+					});
+			   })
+		
+		/*
 		for (let uri of uris) {
-			if (uri != null && uri != 'undefined'){
-				Image.prefetch(uri);
+			if (uri != null && uri != '' && uri != 'undefined'){
+				Image.prefetch(uri);			
 				//Alert.alert('Prefetching image', uri);
 			}
 			//imagePrefetch.push(Image.prefetch(uri));
-		}
+		}*/
 		
 		//Alert.alert('Done loading images: ' + uris.length);
 		
@@ -216,7 +233,7 @@ export default class LogoView extends Component {
 
 		this.setState({
 			citiesJson: citiesJson,
-			isLoading: false
+			isLoading: true
 		});
 		this.saveCitiesJsonInStorage(citiesJsonString);
 		this.prefetchImages(citiesJson);
