@@ -12,6 +12,7 @@ var {
   PanResponder,
   Animated,
   StyleSheet,
+  Easing
 } = ReactNative;
 
 var StaticRenderer = require('react-native/Libraries/Components/StaticRenderer');
@@ -51,12 +52,20 @@ var ViewPager = React.createClass({
       isLoop: false,
       locked: false,
       animation: function(animate, toValue, gs) {
-        return Animated.spring(animate,
+        /*return Animated.spring(animate,
           {
             toValue: toValue,
             friction: 10,
-            tension: 50,
-          })
+            tension: 60,
+          })*/
+		  return Animated.timing(animate,
+					{
+					  toValue: toValue,
+						duration: 250,
+						easing: Easing.inOut(Easing.ease),
+						delay: 0,
+					}
+				)
       },
     }
   },
@@ -73,45 +82,47 @@ var ViewPager = React.createClass({
     this.childIndex = 0;
 
     var release = (e, gestureState) => {
-      var relativeGestureDistance = gestureState.dx / deviceWidth,
-          //lastPageIndex = this.props.children.length - 1,
-          vx = gestureState.vx;
 
-      var step = 0;
-      if (relativeGestureDistance < -0.3 || (relativeGestureDistance < 0 && vx <= -1e-6)) {
-        step = 1;
-      } else if (relativeGestureDistance > 0.3 || (relativeGestureDistance > 0 && vx >= 1e-6)) {
-        step = -1;
-      }
+		var relativeGestureDistance = gestureState.dx / deviceWidth,
+		//lastPageIndex = this.props.children.length - 1,
+		vx = gestureState.vx;
 
-      this.props.hasTouch && this.props.hasTouch(false);
+		var step = 0;
+		if (relativeGestureDistance < -0.3 || (relativeGestureDistance < 0 && vx <= -1e-6)) {
+			step = 1;
+		} else if (relativeGestureDistance > 0.3 || (relativeGestureDistance > 0 && vx >= 1e-6)) {
+			step = -1;
+		}
 
-      this.movePage(step, gestureState);
+		this.props.hasTouch && this.props.hasTouch(false);
+
+		this.movePage(step, gestureState);
+		
     }
 
     this._panResponder = PanResponder.create({
-      // Claim responder if it's a horizontal pan
-      onMoveShouldSetPanResponder: (e, gestureState) => {
-        if (Math.abs(gestureState.dx) > 10 && Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
-          if (/* (gestureState.moveX <= this.props.edgeHitWidth ||
-              gestureState.moveX >= deviceWidth - this.props.edgeHitWidth) && */
-                this.props.locked !== true && !this.fling) {
-            this.props.hasTouch && this.props.hasTouch(true);
-            return true;
-          }
-        }
-      },
+		// Claim responder if it's a horizontal pan
+		onMoveShouldSetPanResponder: (e, gestureState) => {
+			if (Math.abs(gestureState.dx) > 5 && Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
+				if (/* (gestureState.moveX <= this.props.edgeHitWidth ||
+					gestureState.moveX >= deviceWidth - this.props.edgeHitWidth) && */
+					this.props.locked !== true && !this.fling) {
+					this.props.hasTouch && this.props.hasTouch(true);
+					return true;
+				}
+			}
+		},
 
-      // Touch is released, scroll to the one that you're closest to
-      onPanResponderRelease: release,
-      onPanResponderTerminate: release,
+		// Touch is released, scroll to the one that you're closest to
+		onPanResponderRelease: release,
+		onPanResponderTerminate: release,
 
-      // Dragging, move the view with the touch
-      onPanResponderMove: (e, gestureState) => {
-        var dx = gestureState.dx;
-        var offsetX = -dx / this.state.viewWidth + this.childIndex;
-        this.state.scrollValue.setValue(offsetX);
-      },
+		// Dragging, move the view with the touch
+		onPanResponderMove: (e, gestureState) => {
+			var dx = gestureState.dx;
+			var offsetX = -dx / this.state.viewWidth + this.childIndex;
+			this.state.scrollValue.setValue(offsetX);
+		},
     });
 
     if (this.props.isLoop) {

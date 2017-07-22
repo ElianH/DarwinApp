@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, TouchableHighlight, Alert, Image, StyleSheet, ListView, Animated, Easing, ActivityIndicator } from 'react-native';
+import { Text, View, Dimensions, TouchableHighlight, Alert, StyleSheet, ListView, Animated, Easing, ActivityIndicator } from 'react-native';
+import { Image as Image1 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
 import LinearGradient from 'react-native-linear-gradient';
 import NavBar from './NavBar';
 import ViewPager from './ViewPager';
+import Image from './ImageProgress';
 
 const { width, height } = Dimensions.get('window');
 
@@ -66,9 +68,18 @@ export default class GeneralMapView extends Component {
 			var latitudePos = minLatitude + midLatitude;
 			var longitudePos = minLongitude + midLongitude;
 			
-			const delta = 6;
+			var delta = 6;
 			var latitudeDelta = midLatitude * delta;
 			var longitudeDelta = midLongitude * (delta * ASPECT_RATIO);
+			
+			if (markers.length == 1 && 
+				markers[0].coordinate.delta != null && 
+				markers[0].coordinate.delta != "" && 
+				markers[0].coordinate.delta != "undefined"){
+				
+				latitudeDelta = markers[0].coordinate.delta;
+				longitudeDelta = (markers[0].coordinate.delta * ASPECT_RATIO);
+			}
 			
 			this.setRegionState(latitudePos, longitudePos, latitudeDelta, longitudeDelta);
 		}
@@ -252,16 +263,26 @@ export default class GeneralMapView extends Component {
 										}}>
 										{
 											(this.uniqueMarkerTypes[markerType.typeName].isEnabled &&
-											<Image 
-												resizeMode='contain'
-												style={[styles.filterButtonImage]}
-												source={{ uri: markerType.imageSrc }}/>	)
+											<View style={{flexDirection: 'column'}}>
+												<Image1 resizeMode='contain'
+													style={[styles.filterButtonImage]}
+													source={{ uri: markerType.imageSrc }}/>
+												<View style={{backgroundColor:'#555', height:6, flexDirection:'row', justifyContent: 'space-between', borderRadius:3}}>
+													<View style={{backgroundColor:'#555', height:6, width:10, borderRadius:3}}/>
+													<View style={{backgroundColor:'#080', height:6, width:10, borderRadius:3}}/>
+												</View>
+											</View>)
 											||	
 											(!this.uniqueMarkerTypes[markerType.typeName].isEnabled &&
-											<Image 
-												resizeMode='contain'
-												style={[styles.filterButtonImage,{tintColor:'#888', marginTop:3}]}
-												source={{ uri: markerType.imageSrc }}/> )
+											<View style={{flexDirection: 'column'}}>
+												<Image1 resizeMode='contain'
+													style={[styles.filterButtonImage,{ tintColor:'#555'}]}
+													source={{ uri: markerType.imageSrc }}/> 
+												<View style={{backgroundColor:'#555', height:6, flexDirection:'row', justifyContent: 'space-between', borderRadius:3}}>
+													<View style={{backgroundColor:'#800', height:6, width:10, borderRadius:3}}/>
+													<View style={{backgroundColor:'#555', height:6, width:10, borderRadius:3}}/>
+												</View>
+											</View>)
 										}
 									</TouchableHighlight >
 								)
@@ -299,8 +320,6 @@ export default class GeneralMapView extends Component {
 										<View style={styles.footerRightView}>
 											<Text style={styles.footerTitleText}>{selectedMarker.name.toUpperCase()}</Text>
 											<Text style={styles.footerShortDescriptionText}>{selectedMarker.shortDescription}</Text>
-											<Text style={styles.footerTypeText}></Text>
-											
 										</View>
 									</View>
 								</TouchableHighlight>
@@ -392,22 +411,27 @@ const styles = StyleSheet.create({
 	},
 	footerRightView:{
 		flex:1,
-		flexDirection:'column'
+		margin:10,
+		marginTop:0,
+		flexDirection:'column',
+		alignItems:'center',
+		justifyContent: 'center',
+		alignSelf: 'center',
 	},
 	footerTitleText: {
-		marginTop:5,
-		marginLeft:10,
 		fontSize: 22,
 		fontFamily: 'Brandon_bld',
 		fontWeight: 'bold',
+		justifyContent: 'center',
+		textAlign: 'center',
 		color: '#EEE',
 	},
 	footerTypeText:{
 		color: '#EEE',
 	},
 	footerShortDescriptionText:{
-		color: '#888',
-		marginLeft:10,
+		color: '#EEE',
+		textAlign: 'center',
 	},
 	filterBackground: {
 		...StyleSheet.absoluteFillObject,

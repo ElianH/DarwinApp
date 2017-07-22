@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, ListView, PixelRatio, StyleSheet, Text, View, StatusBar, Alert, TouchableHighlight, Linking, Animated, Easing, Share} from 'react-native';
+import { Dimensions, ListView, PixelRatio, StyleSheet, Text, View, StatusBar, Alert, TouchableHighlight, Linking, Animated, Easing, Share} from 'react-native';
 import ViewPager from './ViewPager';
 import { Actions } from 'react-native-router-flux';
 import ParallaxScrollView from './ParallaxScrollView'
 import NavBar from './NavBar'
 import MapView from 'react-native-maps';
+import Image from './ImageProgress';
+import PanResponderView from './PanResponderView';
 
 export default class InfoView extends Component {
 
@@ -315,7 +317,7 @@ export default class InfoView extends Component {
 						<View style={{ backgroundColor:'#000', flexDirection:'column'}}>			
 							<View style={{flexDirection:'row', justifyContent: 'space-between', marginLeft:25, marginRight:25, marginTop:8}}>
 								<Text style={{ color:'#EEE', fontSize:29, fontFamily:'Brandon_blk', width:window.width-80}}>{this.props.selectedItem.name.toUpperCase()}</Text>
-								<TouchableHighlight style={styles.openSharePanelButton} onPress={() => { this.toggleSharePanel(); }}>
+								<TouchableHighlight style={styles.openSharePanelButton} onPress={this.shareMore}>
 									<Image style={styles.openSharePanelButtonImage} resizeMode='contain' source={shareButtonImage} />
 								</TouchableHighlight>
 							</View>
@@ -333,7 +335,7 @@ export default class InfoView extends Component {
 						backgroundSpeed={10}
 						
 						renderForeground={() => (
-							<View key="background" style={{ width: window.width, height: PARALLAX_HEADER_HEIGHT}}>
+							<View scrollEnabled="false" key="background" style={{width: window.width, height: PARALLAX_HEADER_HEIGHT}}>
 								<ViewPager
 									dataSource={cityImagesDataSource}
 									renderPage={(cityImage) =>
@@ -343,7 +345,6 @@ export default class InfoView extends Component {
 											</Image>
 										</View>
 									}/>
-
 							</View>
 						)}
 

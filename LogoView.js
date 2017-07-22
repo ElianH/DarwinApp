@@ -125,6 +125,7 @@ export default class LogoView extends Component {
 		citiesJson.slice().map((city)=> {
 			// load city images
 			uris.push(city.mainImageSrc);
+			uris.push(city.nearMeImageSrc);
 			if (city.otherImages != null){
 				city.otherImages.slice().map((otherImage)=>uris.push(otherImage.imageSrc));
 			}
@@ -134,6 +135,7 @@ export default class LogoView extends Component {
 					uris.push(cityMenu.imageSrc);
 					uris.push(cityMenu.backgroundImageSrc);
 				}
+				// The following code is commented out, it took too long to get these images.
 				// load city menu item images
 				/*
 				cityMenu.items.slice().map((item)=>{
@@ -192,8 +194,6 @@ export default class LogoView extends Component {
         		console.error(error);
       		});
   		return;
-
-
 
 		return fetch(url)
 			.then((responseJson) => {

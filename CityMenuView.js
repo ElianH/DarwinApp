@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text, TouchableHighlight, View, StyleSheet, ListView, Image, Alert, Dimensions} from 'react-native';
+import { Text, TouchableHighlight, View, StyleSheet, ListView, Alert, Dimensions} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import NavBar from './NavBar';
 import { calculateItemDistance, calculateItemDistanceNumber } from './DistanceView';
 import Drawer from 'react-native-drawer';
 import LinearGradient from 'react-native-linear-gradient';
+import Image from './ImageProgress';
 
 var deviceWidth = Dimensions.get('window').width;
 var deviceHeight = Dimensions.get('window').height;
