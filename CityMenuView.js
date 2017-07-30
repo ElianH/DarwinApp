@@ -286,6 +286,7 @@ export default class CityMenuView extends Component {
 											>
 											<View  style={styles.itemButtonView}>
 												<Text style={styles.itemButtonText}>{item.name.toUpperCase()}</Text>
+												<Text style={styles.itemButtonDescriptionText}>{item.shortDescription}</Text>
 												<View style={styles.itemButtonSecondLineView}>
 													<Text style={styles.itemButtonTypeText}>{item.itemType.toUpperCase()}</Text>
 													<Text style={styles.itemButtonDistanceText}>{calculateItemDistance(this.state.lastPosition, item)}</Text>
@@ -356,10 +357,17 @@ const styles = StyleSheet.create({
 	},
 	itemButtonText: {
 		fontSize: 26,
-		margin:10,
-		marginBottom:28,
+		marginLeft: 10,
 		color:'#EEE',
 		fontFamily: 'Brandon_blk',
+	},
+	itemButtonDescriptionText: {
+		fontSize: 15,
+		marginLeft: 10,
+		marginBottom: 25,
+		alignSelf: 'flex-start',
+		fontFamily: 'OpenSans-Regular',
+		color: '#EEE'
 	},
 	itemButtonSecondLineView: {
         flexDirection: 'row',

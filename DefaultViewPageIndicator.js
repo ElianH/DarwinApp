@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: DOT_SIZE / 2,
-    backgroundColor: '#80ACD0',
+    backgroundColor: '#84c441',
     margin: DOT_SAPCE,
     bottom: 0,
   },

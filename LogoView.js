@@ -273,7 +273,7 @@ export default class LogoView extends Component {
  
 	render() {
 
-		const logoBackgroundImageSource = require('./img/JPGs/background_grey.jpg');
+		const logoBackgroundImageSource = require('./img/JPGs/start.jpg');
 		const logoImageSource = require('./img/LOGO2.png');
 
 		//<StatusBar hidden={false} backgroundColor='#000' />
@@ -281,7 +281,7 @@ export default class LogoView extends Component {
 		return (
 			<View style={styles.logoView}>
 
-				<Image style={styles.logoBackgroundImage} source={logoBackgroundImageSource}>
+				<Image style={styles.logoBackgroundImage} resizeMode='cover' source={logoBackgroundImageSource}>
 					
 					<View style={styles.logoBackground}>
 						<Image style={styles.logoImage} resizeMode='contain' source={logoImageSource}/>
@@ -298,13 +298,13 @@ export default class LogoView extends Component {
 							<TouchableHighlight style={styles.languageButton} underlayColor='#175389' 
 								onPress={() => 
 									this.changeLanguageENG((localizedStrings, citiesJson) => 
-										this.goToGeneralMapPage(localizedStrings, citiesJson))}>
+										this.goToCitiesPage(localizedStrings, citiesJson))}>
 								<Text style={styles.languageButtonText}>ENGLISH</Text>
 							</TouchableHighlight>
 							<TouchableHighlight style={styles.languageButton} underlayColor='#175389' 
 								onPress={() => 
 									this.changeLanguageESP((localizedStrings, citiesJson) => 
-										this.goToGeneralMapPage(localizedStrings, citiesJson))}>
+										this.goToCitiesPage(localizedStrings, citiesJson))}>
 								<Text style={styles.languageButtonText}>ESPAÑOL</Text>
 							</TouchableHighlight>
 						</View>
@@ -324,9 +324,8 @@ const styles = StyleSheet.create({
 	},
 	logoBackgroundImage: {
 		flex: 1,
-		resizeMode: 'cover',
-		width: null,
-		height: null,
+		width: window.width,
+		height: window.height,
 	},
 	logoImage: {
 		marginTop:80,
@@ -357,7 +356,7 @@ const styles = StyleSheet.create({
 		color: '#EEE'
 	},
 	logoBackground: {
-		flex: 4,
+		flex: 2,
 		justifyContent: 'center',
 	},
 	loading:{

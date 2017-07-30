@@ -7,7 +7,7 @@ import CitiesView from './CitiesView';
 import CityView from './CityView';
 import CityMenuView from './CityMenuView';
 import GeneralMapView from './GeneralMapView';
-import InfoView from './InfoView';
+import InfoView from './InfoView2';
 import DealsView from './DealsView';
 import PlanYourTripView from './PlanYourTripView';
 import ConfigView from './ConfigView';
