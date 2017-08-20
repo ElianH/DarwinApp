@@ -150,8 +150,8 @@ export default class GeneralMapView extends Component {
 	render() {
 		
 		const navBarBackButtonImageSource = require('./img/Icons/arrow_back/android/drawable-xhdpi/ic_arrow_back_black_24dp.png');
-		const markerImageSource = require('./img/Icons/marker_off_shadow-03.png');
-		const selectedMarkerImageSource = require('./img/Icons/marker_on_shadow-03.png');
+		const markerImageSource = require('./img/Icons/marker/marker_off_shadow_01.png');
+		const selectedMarkerImageSource = require('./img/Icons/marker/marker_on_shadow_01.png');
 		var upperCaseDestinations = this.props.localizedStrings.destinations.toUpperCase();
 		
 		if ((this.selectedMarker == null)&&(this.props.markers != null)&&(this.props.markers.length > 0))
@@ -227,6 +227,8 @@ export default class GeneralMapView extends Component {
 											key={marker.mapKey}
 											onPress={() => { this.showFooter(this.markers, marker); }}
 											image={selectedMarkerImageSource}
+											style={{ height: 22, width: 22 }}
+											centerOffset={{x: 0, y: -22}}
 											coordinate={marker.coordinate}>									
 										</MapView.Marker>
 										
@@ -239,6 +241,8 @@ export default class GeneralMapView extends Component {
 											key={marker.mapKey}
 											onPress={() => { this.showFooter(this.markers, marker); }}
 											image={markerImageSource}
+											style={{ height: 22, width: 22 }}
+											centerOffset={{x: 0, y: -22}}
 											coordinate={marker.coordinate}>									
 										</MapView.Marker>
 									);

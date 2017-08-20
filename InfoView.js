@@ -16,12 +16,12 @@ export default class InfoView extends Component {
 	shareOnInstagram : Function;
 	shareMore : Function;
 	showShareResult : Function;
-	
+
 	state: any;
 
 	constructor(props) {
 		super(props);
-				
+
 		this.shareOnFacebook = this.shareOnFacebook.bind(this);
 		this.shareOnTwitter = this.shareOnTwitter.bind(this);
 		this.shareOnWhatsApp = this.shareOnWhatsApp.bind(this);
@@ -33,26 +33,26 @@ export default class InfoView extends Component {
 		this.animatedValue = new Animated.Value(0);
 		this.state = { sharePanelVisible: false, result: '' };
 	}
-	
-	handleClick = (url) => { 
-		Linking.canOpenURL(url).then(supported => { 
-			if (supported) { 
-				Linking.openURL(url); 
-			} else { 
-				console.log('Don\'t know how to open URI: ' + url); 
-			} 
-		}); 
-	}; 
-  
+
+	handleClick = (url) => {
+		Linking.canOpenURL(url).then(supported => {
+			if (supported) {
+				Linking.openURL(url);
+			} else {
+				console.log('Don\'t know how to open URI: ' + url);
+			}
+		});
+	};
+
 	renderRow(row) {
-		
+
 		const selectedMarkerImageSource = require('./img/Icons/selected_marker_city2.png');
 		const facebookIconImageSource = require('./img/Icons/facebook.png');
 		const phoneIconImageSource = require('./img/Icons/phone.png');
 		const webIconImageSource = require('./img/Icons/web.png');
 		const emailIconImageSource = require('./img/Icons/email.png');
 		const weatherIconImageSource = require('./img/Icons/weather.png');
-		
+
 		if ((row != null)&&(row.itemType != null)){
 			switch (row.itemType.toUpperCase()) {
 				case 'TITLE':
@@ -126,9 +126,9 @@ export default class InfoView extends Component {
 						<View>
 							<MapView
 								style={styles.rowViewMap}
-								cacheEnabled={true}				
+								cacheEnabled={true}
 								zoomEnabled={false}
-								rotateEnabled={false} 
+								rotateEnabled={false}
 								scrollEnabled={false}
 								pitchEnabled={false}
 								region={{
@@ -140,7 +140,7 @@ export default class InfoView extends Component {
 								<MapView.Marker
 									image={selectedMarkerImageSource}
 									style={{height:15, width:15}}
-									coordinate={{ latitude: row.latitude, longitude: row.longitude }}/>									
+									coordinate={{ latitude: row.latitude, longitude: row.longitude }}/>
 							</MapView>
 						</View>
 					);
@@ -177,7 +177,7 @@ export default class InfoView extends Component {
 		}
 		return ( <View/> );
 	}
-	
+
 	toggleSharePanel(){
 		if (!this.sharePanelVisible){
 			Animated.spring(
@@ -194,7 +194,7 @@ export default class InfoView extends Component {
 			this.hideSharePanel();
 		}
 	}
-	
+
 	hideSharePanel(){
 		if (this.sharePanelVisible){
 			Animated.timing(
@@ -212,18 +212,18 @@ export default class InfoView extends Component {
 
 	shareOnFacebook() {
 	}
-	
+
 	shareOnTwitter() {
 	}
-	
+
 	shareOnInstagram() {
 	}
-	
+
 	shareOnWhatsApp() {
 		var urlEncodedString = encodeURIComponent(this.props.selectedItem.shareText);
 		this.handleClick('whatsapp://send?text='+urlEncodedString);
 	}
-	
+
 	shareMore() {
 		Share.share({
 			message: this.props.selectedItem.shareText,
@@ -249,29 +249,29 @@ export default class InfoView extends Component {
 			this.setState({result: 'dismissed'});
 		}
 	}
-	
+
 	render() {
-	  
+
 		const { onScroll = () => { this.hideSharePanel(); } } = this.props;
 		const twitterIconImageSource = require('./img/Icons/twitter.png');
 		const facebookIconImageSource = require('./img/Icons/facebook.png');
 		const whatsappIconImageSource = require('./img/Icons/whatsapp.png');
 		const instagramIconImageSource = require('./img/Icons/instagram.png');
 		const shareMoreIconImageSource = require('./img/Icons/shareMore.png');
-	
+
 		// navigation
 		const goToInfoPage = (item) => { Actions.infoPage({
-			localizedStrings: this.props.localizedStrings, 
-			selectedItem: this.props.selectedItem}); 
-		};  
+			localizedStrings: this.props.localizedStrings,
+			selectedItem: this.props.selectedItem});
+		};
 		const goToGeneralMapPage = () => { Actions.generalMapPage({
-				localizedStrings: this.props.localizedStrings, 
+				localizedStrings: this.props.localizedStrings,
 				markers: [ this.props.selectedItem ],
 				showFilters: false,
 				onMarkerClick: (localizedStrings,item)=>goToInfoPage(item)
-			}); 
+			});
 		};
-			
+
 		// city images (for view pager)
 		const vpds = new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2});
 		var otherImages = [];
@@ -279,7 +279,7 @@ export default class InfoView extends Component {
 			otherImages = this.props.selectedItem.otherImages;
 		}
 		var cityImagesDataSource = vpds.cloneWithPages(otherImages);
-		
+
 		// info items
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		var infoItems = [];
@@ -287,34 +287,35 @@ export default class InfoView extends Component {
 			infoItems = this.props.selectedItem.infoItems;
 		}
 		var infoItemsDataSource = ds.cloneWithRows(infoItems);
-			
+
 		// share panel animated value
 		shareButtonImage = require('./img/Icons/share.png');
 		const activityDetailsViewHeight = this.animatedValue.interpolate({
 			inputRange: [0, 1],
 			outputRange: [0, 100]
 		});
-		
+
 		// nav bar header text
 		const maxTitleLength = 25;
 		var navBarText = this.props.selectedItem.name.toUpperCase();
 		if (navBarText.length > maxTitleLength){
 			navBarText = navBarText.substring(0, maxTitleLength-1) + "...";
 		}
-			
+
 		return (
 			<View style={{flex:1, flexDirection:'column'}}>
 				<StatusBar hidden={false} backgroundColor='#000' />
 
 				<ListView
 					ref="ListView"
+					bounces="false"
 					style={styles.container}
 					dataSource={ infoItemsDataSource }
-					renderRow={this.renderRow}		 
-					initialListSize={300} 
+					renderRow={this.renderRow}
+					initialListSize={300}
 					removeClippedSubviews={false}
-					renderHeader={() => 
-						<View style={{ backgroundColor:'#000', flexDirection:'column'}}>			
+					renderHeader={() =>
+						<View style={{ backgroundColor:'#000', flexDirection:'column'}}>
 							<View style={{flexDirection:'row', justifyContent: 'space-between', marginLeft:25, marginRight:25, marginTop:8}}>
 								<Text style={{ color:'#EEE', fontSize:29, fontFamily:'Brandon_blk', width:window.width-80}}>{this.props.selectedItem.name.toUpperCase()}</Text>
 								<TouchableHighlight style={styles.openSharePanelButton} onPress={this.shareMore}>
@@ -333,7 +334,7 @@ export default class InfoView extends Component {
 						stickyHeaderHeight={ STICKY_HEADER_HEIGHT }
 						parallaxHeaderHeight={ PARALLAX_HEADER_HEIGHT }
 						backgroundSpeed={10}
-						
+
 						renderForeground={() => (
 							<View scrollEnabled="false" key="background" style={{width: window.width, height: PARALLAX_HEADER_HEIGHT}}>
 								<ViewPager
@@ -357,7 +358,7 @@ export default class InfoView extends Component {
 				/>
 				<View style={styles.navBarView}>
 					<NavBar
-						title='' 
+						title=''
 						style={styles.navBar}
 						backgroundColor='transparent'
 						localizedStrings={this.props.localizedStrings}
@@ -416,7 +417,7 @@ const styles = StyleSheet.create({
 		color: '#EEE',
 		justifyContent:'center',
 		alignSelf:'center',
-	},	
+	},
 	cityBackgroundImageView: {
 		flex: 1,
 		flexDirection:'column',
@@ -519,12 +520,12 @@ const styles = StyleSheet.create({
 		margin: 15,
 		opacity: 0.8,
 	},
-	headerShortDescription:{ 
-		color:'#888', 
-		fontSize:16, 
-		fontFamily:'OpenSans-Regular', 
-		marginTop:-3, 
-		marginLeft:26, 
+	headerShortDescription:{
+		color:'#888',
+		fontSize:16,
+		fontFamily:'OpenSans-Regular',
+		marginTop:-3,
+		marginLeft:26,
 		marginRight:26,
 		marginBottom:12,
 	},
@@ -535,7 +536,7 @@ const styles = StyleSheet.create({
 	openSharePanelButtonImage:{
 		width: 30,
 		height: 30,
-		tintColor: '#EEE', 
+		tintColor: '#EEE',
 	},
 	shareButton:{
 		width: 70,
