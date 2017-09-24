@@ -44,12 +44,17 @@ export default class InfoView extends Component {
 		const instagramIconImageSource = require('./img/Icons/instagram_black.png');
 		const whatsappIconImageSource = require('./img/Icons/whatsapp_black.png');
 
+		// Can be ('auto', 'left', 'right', 'center', 'justify')
+		var rowTextAlign = 'auto'
+		if (row.textAlign != null)
+			rowTextAlign = row.textAlign;
+
 		if ((row != null)&&(row.itemType != null)){
 			switch (row.itemType.toUpperCase()) {
 				case 'TITLE':
 					return (
 						<View style={styles.rowView}>
-							<Text style={{flex:1, fontSize:18}}>{row.text}</Text>
+							<Text style={{flex:1, fontSize:18, textAlign: rowTextAlign}}>{row.text}</Text>
 						</View>
 					);
 				case 'LINE':
@@ -61,13 +66,13 @@ export default class InfoView extends Component {
 				case 'TEXT':
 					return (
 						<View style={styles.rowView}>
-							<Text style={{flex:1, fontSize:16, fontFamily:'OpenSans-Regular'}}>{row.text}</Text>
+							<Text style={{flex:1, fontSize:16, fontFamily:'OpenSans-Regular', textAlign: rowTextAlign}}>{row.text}</Text>
 						</View>
 					);
 				case 'BOLD_TEXT':
 					return (
 						<View style={styles.rowView}>
-							<Text style={{flex:1, fontSize:16, fontFamily:'OpenSans-Bold'}}>{row.text}</Text>
+							<Text style={{flex:1, fontSize:16, fontFamily:'OpenSans-Bold', textAlign: rowTextAlign}}>{row.text}</Text>
 						</View>
 					);
 				case 'DOUBLE_COLUMN_TEXT':
@@ -197,6 +202,10 @@ export default class InfoView extends Component {
 							</View>
 						</TouchableHighlight>
 					);
+				case 'SPACE':
+					return (
+						<View style={{ width: window.width - 10, height: row.height}} />
+					);
 			}
 		}
 		return ( <View/> );
@@ -319,9 +328,10 @@ export default class InfoView extends Component {
 							<View style={{backgroundColor: '#000', flexDirection:'column'}}>
 								<View style={{ flexDirection:'row', justifyContent: 'space-between', marginLeft:25, marginRight:25, marginTop:8}}>
 									<Text style={{ color:'#EEE', fontSize:29, fontFamily:'Brandon_blk', width:window.width-80}}>{this.props.selectedItem.name.toUpperCase()}</Text>
+									{/* Not used yet, commenting it out for now. 
 									<TouchableHighlight style={styles.openSharePanelButton} onPress={this.shareMore}>
 										<Image style={styles.openSharePanelButtonImage} resizeMode='contain' source={shareButtonImage} />
-									</TouchableHighlight>
+									</TouchableHighlight> */}
 								</View>
 								<Text style={styles.headerShortDescription}>{this.props.selectedItem.shortDescription}</Text>
 							</View>
