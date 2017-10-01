@@ -13,22 +13,22 @@ const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 
 export default class GeneralMapView extends Component {
-	
+
 	selectedMarker = null;
 	distinctMarkerTypes = [];
 	uniqueMarkerTypes = {};
 	markers = [];
-	
+
 	constructor(props) {
 		super(props);
-				
+
 		this.onRegionChange = this.onRegionChange.bind(this);
 		this.showFooter = this.showFooter.bind(this);
-		
+
 		if (this.props.showNearMe){
 			this.state = ({isMapLoading : true});
-			navigator.geolocation.getCurrentPosition( 
-				(position) => { 
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
 					var initialPosition = JSON.stringify(position);
 					const delta = 0.015;
 					var latitudePos = position.coords.latitude-(delta/10);
@@ -36,13 +36,13 @@ export default class GeneralMapView extends Component {
 					var latitudeDelta = delta;
 					var longitudeDelta = delta * ASPECT_RATIO;
 					this.setRegionState(latitudePos, longitudePos, latitudeDelta, longitudeDelta);
-				}, 
+				},
 				(error) => {
 					Alert.alert('Error while getting position', error);
 				},
 				{
-					enableHighAccuracy: false, 
-					timeout: 5000, 
+					enableHighAccuracy: false,
+					timeout: 5000,
 					maximumAge: 500000
 				}
 			);
@@ -53,45 +53,45 @@ export default class GeneralMapView extends Component {
 			if (this.props.selectedType != null){
 				markers = markers.slice().filter(marker => marker.typeName == this.props.selectedType);
 			}
-			
+
 			var latitudesArray = markers.slice().map((marker)=>{ return marker.coordinate.latitude });
 			var longitudesArray = markers.slice().map((marker)=>{ return marker.coordinate.longitude });
-			
-			var maxLatitude = Math.max.apply(Math, latitudesArray); 
+
+			var maxLatitude = Math.max.apply(Math, latitudesArray);
 			var maxLongitude = Math.max.apply(Math, longitudesArray);
 			var minLatitude = Math.min.apply(Math, latitudesArray);
 			var minLongitude = Math.min.apply(Math, longitudesArray);
-			
+
 			var midLatitude = (maxLatitude-minLatitude)/2.0;
 			var midLongitude = (maxLongitude-minLongitude)/2.0;
-			
+
 			var latitudePos = minLatitude + midLatitude;
 			var longitudePos = minLongitude + midLongitude;
-			
+
 			var delta = 6;
 			var latitudeDelta = midLatitude * delta;
 			var longitudeDelta = midLongitude * (delta * ASPECT_RATIO);
-			
-			if (markers.length == 1 && 
-				markers[0].coordinate.delta != null && 
-				markers[0].coordinate.delta != "" && 
+
+			if (markers.length == 1 &&
+				markers[0].coordinate.delta != null &&
+				markers[0].coordinate.delta != "" &&
 				markers[0].coordinate.delta != "undefined"){
-				
+
 				latitudeDelta = markers[0].coordinate.delta;
 				longitudeDelta = (markers[0].coordinate.delta * ASPECT_RATIO);
 			}
-			
+
 			this.setRegionState(latitudePos, longitudePos, latitudeDelta, longitudeDelta);
 		}
 	}
-	
+
 	setRegionState(latitudePos, longitudePos, latitudeDelta, longitudeDelta){
-		
+
 		/*
-		Alert.alert('pos', 
-			'latitudePos: ' + latitudePos + 
-			'  longitudePos: ' +  longitudePos + 
-			'  latitudeDelta: ' + latitudeDelta + 
+		Alert.alert('pos',
+			'latitudePos: ' + latitudePos +
+			'  longitudePos: ' +  longitudePos +
+			'  latitudeDelta: ' + latitudeDelta +
 			'  longitudeDelta: ' + longitudeDelta);*/
 		this.state = {
 			region: {
@@ -112,9 +112,19 @@ export default class GeneralMapView extends Component {
 		Actions.refresh();
 	}
 
-	onRegionChange(region) {	
-		this.setState({ 
-			region : region, 
+	onRegionChange(region) {
+
+    if (region.latitudePos == null || region.longitudePos == null)
+		  return;
+/*
+		Alert.alert('pos',
+			'latitudePos: ' + region.latitudePos +
+			'  longitudePos: ' +  region.longitudePos +
+			'  session.latitudePos: ' + this.state.region.latitudePos +
+			'  session.longitudePos: ' + this.state.region.longitudePos);
+*/
+		this.setState({
+			region : region,
 			coordinate: {
 				latitude: region.latitude,
 				longitude: region.longitude,
@@ -122,24 +132,28 @@ export default class GeneralMapView extends Component {
 			selectedMarker : this.selectedMarker
 		  });
 	}
-	
+
 	showFooter(markers, marker) {
-		if (this.selectedMarker == marker) return;
+		if (this.selectedMarker == marker)
+			return;
+
+		this.isChangingMarker = true;
 		var page = markers.indexOf(marker);
 		this.selectedMarker = marker;
-		this.setState({ selectedMarker : marker, currentPage : page}); 
+		this.setState({ selectedMarker : marker, currentPage : page});
 		setTimeout(() => { this.viewpager.goToPage(page) },1);
 	}
-	
+
 	onChangeFooterPage(markers, pageNumber){
+		this.isChangingMarker = true;
 		var marker = this.markers[pageNumber];
 		var page = markers.indexOf(marker);
 		this.selectedMarker = marker;
 		this.state.selectedMarker = marker;
 		this.state.animatedCurrentPage.setValue(pageNumber);
-		this.setState({ selectedMarker : marker, currentPage : page}); 
+		this.setState({ selectedMarker : marker, currentPage : page});
 	}
-	
+
 	isMarkerNearMe(marker){
 		return marker.coordinate.latitude < this.state.region.latitude + this.state.region.latitudeDelta
 				&& marker.coordinate.latitude > this.state.region.latitude - this.state.region.latitudeDelta
@@ -148,21 +162,21 @@ export default class GeneralMapView extends Component {
 	}
 
 	render() {
-		
+
 		const navBarBackButtonImageSource = require('./img/Icons/arrow_back/android/drawable-xhdpi/ic_arrow_back_black_24dp.png');
 		const markerImageSource = require('./img/Icons/marker/marker_off_shadow_01.png');
 		const selectedMarkerImageSource = require('./img/Icons/marker/marker_on_shadow_01.png');
 		var upperCaseDestinations = this.props.localizedStrings.destinations.toUpperCase();
-		
+
 		if ((this.selectedMarker == null)&&(this.props.markers != null)&&(this.props.markers.length > 0))
 		{
 			this.selectedMarker = this.props.markers[0];
 			this.setState({ selectedMarker : this.selectedMarker });
 		}
-		
-		// Get the list of distinct marker types for the filters		
+
+		// Get the list of distinct marker types for the filters
 		if (this.distinctMarkerTypes.length == 0){
-			this.props.markers.slice().map((marker)=> {  
+			this.props.markers.slice().map((marker)=> {
 				var isEnabled = (this.props.selectedType == null) || (marker.typeName == this.props.selectedType);
 				var type = { typeName:marker.typeName, imageSrc:marker.typeImageSrc, isEnabled: isEnabled };
 				if( typeof(this.uniqueMarkerTypes[type.typeName]) == "undefined"){
@@ -174,28 +188,28 @@ export default class GeneralMapView extends Component {
 		}
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 		var filteredMarkerTypesDataSource = ds.cloneWithRows(this.distinctMarkerTypes);
-		
+
 		// Markers for the map (filter disabled types)
-		this.markers = this.props.markers.slice().filter((marker)=> { 
+		this.markers = this.props.markers.slice().filter((marker)=> {
 			if (!this.props.showNearMe){
-				return this.uniqueMarkerTypes[marker.typeName].isEnabled; 
+				return this.uniqueMarkerTypes[marker.typeName].isEnabled;
 			}
 			else if (!this.state.isMapLoading) {
-				return this.uniqueMarkerTypes[marker.typeName].isEnabled && this.isMarkerNearMe(marker);	
+				return this.uniqueMarkerTypes[marker.typeName].isEnabled && this.isMarkerNearMe(marker);
 			}
 		});
-		
+
 		// Markers for view pager
 		const vpds = new ViewPager.DataSource({pageHasChanged: (p1, p2) => p1 !== p2});
 		var markersViewPagerDataSource = vpds.cloneWithPages(this.markers);
 
 		return (
 			<View style={{flex:1}}>
-			
+
 				{
 					(this.state.isMapLoading) &&
 					<View style={styles.mapLoadingView}>
-						<ActivityIndicator style={styles.loading} size="large" color='#333' />	
+						<ActivityIndicator style={styles.loading} size="large" color='#333' />
 					</View>
 				}
 				{
@@ -207,13 +221,13 @@ export default class GeneralMapView extends Component {
 						showsPointsOfInterest={false}
 						showsBuildings={false}
 						showsTraffic={false}
-						region={this.state.region}
-						customMapStyle={[ 
+						initialRegion={this.state.region}
+						customMapStyle={[
 											{
 												featureType: "poi",
 												elementType: "labels",
-												stylers: [{ 
-													visibility: "off" 
+												stylers: [{
+													visibility: "off"
 												}]
 											}
 										]}
@@ -229,9 +243,9 @@ export default class GeneralMapView extends Component {
 											image={selectedMarkerImageSource}
 											style={{ height: 22, width: 22 }}
 											centerOffset={{x: 0, y: -22}}
-											coordinate={marker.coordinate}>									
+											coordinate={marker.coordinate}>
 										</MapView.Marker>
-										
+
 									);
 								}
 								else
@@ -243,7 +257,7 @@ export default class GeneralMapView extends Component {
 											image={markerImageSource}
 											style={{ height: 22, width: 22 }}
 											centerOffset={{x: 0, y: -22}}
-											coordinate={marker.coordinate}>									
+											coordinate={marker.coordinate}>
 										</MapView.Marker>
 									);
 								}
@@ -254,13 +268,13 @@ export default class GeneralMapView extends Component {
 				{
 					(this.props.showFilters) &&
 					<View style={styles.filterBackground}>
-						<ListView 
+						<ListView
 							horizontal={true}
 							dataSource={filteredMarkerTypesDataSource}
 							renderRow={(markerType) => {
-								
+
 								return (
-									<TouchableHighlight style={styles.filterButton} onPress={() => {  
+									<TouchableHighlight style={styles.filterButton} onPress={() => {
 											this.uniqueMarkerTypes[markerType.typeName].isEnabled = !this.uniqueMarkerTypes[markerType.typeName].isEnabled;
 											Actions.refresh();
 										}}>
@@ -275,12 +289,12 @@ export default class GeneralMapView extends Component {
 													<View style={{backgroundColor:'#080', height:6, width:10, borderRadius:3}}/>
 												</View>
 											</View>)
-											||	
+											||
 											(!this.uniqueMarkerTypes[markerType.typeName].isEnabled &&
 											<View style={{flexDirection: 'column'}}>
 												<Image1 resizeMode='contain'
 													style={[styles.filterButtonImage,{ tintColor:'#555'}]}
-													source={{ uri: markerType.imageSrc }}/> 
+													source={{ uri: markerType.imageSrc }}/>
 												<View style={{backgroundColor:'#555', height:6, flexDirection:'row', justifyContent: 'space-between', borderRadius:3}}>
 													<View style={{backgroundColor:'#800', height:6, width:10, borderRadius:3}}/>
 													<View style={{backgroundColor:'#555', height:6, width:10, borderRadius:3}}/>
@@ -292,11 +306,11 @@ export default class GeneralMapView extends Component {
 							}}>
 						</ListView>
 					</View>
-				}		
+				}
 				{
 					(!this.state.isMapLoading) && (this.selectedMarker != null) && (this.markers.length > 0) &&
 					<View style={styles.footerViewPagerStyle}>
-						<ViewPager 
+						<ViewPager
 							ref={(viewpager) => {this.viewpager = viewpager}}
 							dataSource={markersViewPagerDataSource}
 							animation={(animate, toValue, gs)=> {
@@ -332,34 +346,34 @@ export default class GeneralMapView extends Component {
 							/>
 					</View>
 				}
-				
-				<NavBar style={{height:50}} 
-					title={upperCaseDestinations} 
+
+				<NavBar style={{height:50}}
+					title={upperCaseDestinations}
 					localizedStrings={this.props.localizedStrings}
 					listItems={this.props.markers}
 					enableSearch={false}
 					onListButtonClick={this.props.onListButtonClick}
-					onSearchChanged={(isSearching, text) => { 
-						this.isSearching = isSearching;  
+					onSearchChanged={(isSearching, text) => {
+						this.isSearching = isSearching;
 						this.text = text;
-					}} />		
-				
+					}} />
+
 			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	
+
 	navBarStyle: {
 		...StyleSheet.absoluteFillObject,
 		zIndex: 10,
 		position : 'absolute',
 		top: 0,
 		alignSelf:'stretch',
-		height: 50, 
+		height: 50,
 		backgroundColor:'#000',
-		flexDirection: 'row',		
+		flexDirection: 'row',
 	},
 	navBarBackButton: {
 		width:50,
@@ -372,7 +386,7 @@ const styles = StyleSheet.create({
 		width:25,
 		height:25,
 		alignSelf:'center',
-	},	
+	},
 	navBarText: {
 		flex:1,
 		fontSize: 18,
@@ -381,7 +395,7 @@ const styles = StyleSheet.create({
 		color: '#EEE',
 		justifyContent:'center',
 		alignSelf:'center',
-	},	
+	},
 	map: {
 		...StyleSheet.absoluteFillObject,
 	},
@@ -391,6 +405,7 @@ const styles = StyleSheet.create({
 	},
 	footerViewPagerStyle: {
 	   ...StyleSheet.absoluteFillObject,
+		 overflow: 'hidden',
 	   justifyContent: 'flex-end',
 	   flexDirection: 'column',
 	   height: 180,
@@ -477,5 +492,5 @@ const styles = StyleSheet.create({
 		height: 40,
 		justifyContent: 'center',
 	},
-	
+
 });
