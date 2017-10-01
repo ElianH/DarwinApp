@@ -5,46 +5,49 @@ import NavBar from './NavBar';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default class CitiesView extends Component {
-	  
+
   isSearching = false;
   text = '';
-  
+
   constructor(props) {
 	super(props);
   }
-  
+
   	goToCitiesPage(localizedStrings, citiesJson){
 		Actions.citiesPage({
-			localizedStrings: localizedStrings, 
+			localizedStrings: localizedStrings,
 			citiesJson: citiesJson,
 		});
 	}
-	
-	goToGeneralMapPage(localizedStrings, citiesJson){ 
+
+	goToGeneralMapPage(localizedStrings, citiesJson){
 		Actions.generalMapPage({
-			localizedStrings: localizedStrings, 
+			localizedStrings: localizedStrings,
 			markers: citiesJson,
 			showFilters: false,
 			onMarkerClick: this.goToCityPage,
 			onListButtonClick: this.goToCitiesPage
-		}); 
+		});
 	}
-	
-	goToCityPage(localizedStrings, selectedCity){ 
-		Actions.cityPage({localizedStrings: localizedStrings, selectedCity: selectedCity}); 
+
+	goToCityPage(localizedStrings, selectedCity){
+		if (selectedCity.isEnabled != null && (selectedCity.isEnabled == 'false' || !selectedCity.isEnabled))
+		  return;
+
+		Actions.cityPage({localizedStrings: localizedStrings, selectedCity: selectedCity});
 	}
-	
-	goToInfoPage(localizedStrings, city){ 
-		Actions.infoPage({ localizedStrings: localizedStrings, selectedItem: city}); 
+
+	goToInfoPage(localizedStrings, city){
+		Actions.infoPage({ localizedStrings: localizedStrings, selectedItem: city});
 	}
-	
+
 	onLanguageChanged(localizedStrings, citiesJson){
 		this.setState({
-			localizedStrings: localizedStrings, 
+			localizedStrings: localizedStrings,
 			citiesJson: citiesJson
 		});
 	}
-	  
+
   render() {
 
 	// localized strings
@@ -55,7 +58,7 @@ export default class CitiesView extends Component {
 	else {
 		localizedStrings = this.props.localizedStrings;
 	}
-	
+
 	// citiesJson
     var citiesJson = null;
 	if (this.state != null && this.state.citiesJson != null){
@@ -64,7 +67,7 @@ export default class CitiesView extends Component {
 	else {
 		citiesJson = this.props.citiesJson;
 	}
-	
+
 	// filtered cities
 	var filterText = this.text.toLowerCase();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -73,20 +76,20 @@ export default class CitiesView extends Component {
 
 	// nav bar title
 	var upperCaseDestinations = localizedStrings.destinations.toUpperCase();
-	
+
 	const infoIconImageSource = require('./img/Icons/icon_info.png');
-	
+
     return (
-	
+
 		<View style={styles.citiesBackground}>
-			<NavBar style={{height:50}} 
-				title={upperCaseDestinations} 
+			<NavBar style={{height:50}}
+				title={upperCaseDestinations}
 				localizedStrings={localizedStrings}
 				enableSearch={true}
 				enableBackButton={false}
 				enableConfigButton={true}
-				onSearchChanged={(isSearching, text) => { 
-					this.isSearching = isSearching;  
+				onSearchChanged={(isSearching, text) => {
+					this.isSearching = isSearching;
 					this.text = text;
 				}}
 				onLanguageChanged= { (localizedStrings, citiesJson) => { this.onLanguageChanged(localizedStrings, citiesJson); }}
@@ -118,7 +121,7 @@ export default class CitiesView extends Component {
 }
 
 const styles = StyleSheet.create({
-	
+
 	citiesBackground: {
 		flex: 1,
 		backgroundColor: '#000',
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
 	cityButtonIconsView: {
 		height:40,
 		flexDirection: 'row',
-		alignSelf: 'flex-end', 
+		alignSelf: 'flex-end',
 	},
 	cityButtonInfoIconImage: {
 		width: 25,
