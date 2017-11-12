@@ -8,6 +8,9 @@ module.exports = {
 		cities: 'Explore',
 		destinations: 'Places to discover',
 		
+		list: 'list',
+		map: 'map',
+		filter: 'filter',
 		removeFilter: 'Remove filter',
 		close: 'Close',
 		sortBy: 'Sort by',

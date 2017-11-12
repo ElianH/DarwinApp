@@ -90,8 +90,8 @@ android {
         applicationId "com.wire.mapas.darwin"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 12
-        versionName "1.12"
+        versionCode 15
+        versionName "1.15"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

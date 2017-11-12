@@ -24,11 +24,12 @@ export default class NavBarView extends Component {
 	const configkButtonImageSource = require('./img/Icons/icon_config.png');
 	const backButtonImageSource = require('./img/Icons/arrow_back/android/drawable-xhdpi/ic_arrow_back_black_24dp.png');
 	const searchButtonImageSource = require('./img/Icons/search/android/drawable-xhdpi/ic_search_black_48dp.png');
-	const mapButtonImageSource = require('./img/Icons/map/android/drawable-xhdpi/ic_map_black_48dp.png');
+	const mapButtonImageSource = require('./img/Icons/map.png');
 	const listButtonImageSource = require('./img/Icons/list.png');
 	const navBarCloseSearchButtonImageSource = require('./img/Icons/varios.png');
 	const filterButtonImageSource = require('./img/Icons/filter.png');
-	const infoButtonImageSource = require('./img/Icons/icon_info.png');
+	const infoButtonImageSource = require('./img/Icons/info.png');
+
 	var navTitle = this.props.title;
 	var backgroundColor = this.props.backgroundColor;
 
@@ -60,7 +61,10 @@ export default class NavBarView extends Component {
 					{
 						(this.props.onFilterButtonClick) &&
 						<TouchableHighlight style={styles.navBarFilterButton} onPress={() => { this.props.onFilterButtonClick(); }}>
-							<Image style={styles.navBarFilterButtonImage} source={filterButtonImageSource}/>
+							<View style={styles.navBarFilterButton}>
+								<Image style={styles.navBarFilterButtonImage} source={filterButtonImageSource}/>
+								<Text style={styles.navBarIconText}>{this.props.localizedStrings.filter.toUpperCase()}</Text>
+							</View>
 						</TouchableHighlight>
 					}
 					{
@@ -82,13 +86,19 @@ export default class NavBarView extends Component {
 					{
 						(this.props.onMapButtonClick) &&
 						<TouchableHighlight style={styles.navBarMapButton} onPress={() => { this.props.onMapButtonClick(); }}>
-							<Image style={styles.navBarMapButtonImage} source={mapButtonImageSource}/>
+							<View style={styles.navBarMapButton}>
+								<Image style={styles.navBarMapButtonImage} source={mapButtonImageSource}/>
+								<Text style={styles.navBarIconText}>{this.props.localizedStrings.map.toUpperCase()}</Text>
+							</View>
 						</TouchableHighlight>
 					}
 					{
 						(this.props.onListButtonClick) &&
 						<TouchableHighlight style={styles.navBarMapButton} onPress={() => { this.props.onListButtonClick(this.props.localizedStrings, this.props.listItems); }}>
-							<Image style={styles.navBarMapButtonImage} source={listButtonImageSource}/>
+							<View style={styles.navBarMapButton}>
+								<Image style={styles.navBarMapButtonImage} source={listButtonImageSource}/>
+								<Text style={styles.navBarIconText}>{this.props.localizedStrings.list.toUpperCase()}</Text>
+							</View>
 						</TouchableHighlight>
 					}
 					{
@@ -197,6 +207,14 @@ const styles = StyleSheet.create({
 		alignSelf:'center',
 		textAlign: 'center',
 	},	
+	navBarIconText: {
+		fontSize: 8,
+		fontFamily: 'Brandon_bld',
+		color: '#EEE',
+		justifyContent:'center',
+		alignSelf:'center',
+		textAlign: 'center',
+	},	
 	navBarSearchButton: {
 		width:40,
 		height:50,
@@ -218,7 +236,7 @@ const styles = StyleSheet.create({
 	},
 	navBarMapButtonImage: {
 		width:25,
-		height:25,
+		height:19,
 		tintColor:'#EEE',
 	},
 	navBarFilterButton: {
@@ -230,7 +248,7 @@ const styles = StyleSheet.create({
 	},
 	navBarFilterButtonImage: {
 		width:25,
-		height:25,
+		height:19,
 		tintColor:'#EEE',
 	},
 	navBarInfoButton: {

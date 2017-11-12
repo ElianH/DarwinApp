@@ -77,7 +77,7 @@ export default class CitiesView extends Component {
 	// nav bar title
 	var upperCaseDestinations = localizedStrings.destinations.toUpperCase();
 
-	const infoIconImageSource = require('./img/Icons/icon_info.png');
+	const infoIconImageSource = require('./img/Icons/info.png');
 
     return (
 
